@@ -7,8 +7,24 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const btnSubmitFunction = () => {
-
+  const btnSubmitFunction = async (event) => {
+    event.preventDefault()
+    const user = {
+      email: email,
+      password: password
+    }
+    let result = await fetch('http://localhost:5000/api/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(user),
+    })
+    let message = await result.json()
+    console.log(message.message)
+    console.log(result.headers.get('x-auth-token'))
   }
 
   return (
