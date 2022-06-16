@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import './Register.css'
 
 
 const Register = () => {
@@ -8,7 +9,8 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
 
   return (
-    <div>
+    <div className="register-container">
+      <span className='register-title'>Register</span>
       <input
         type="text"
         placeholder="Enter your name..."
@@ -43,6 +45,7 @@ const Register = () => {
       /><br />
       <button
         type="submit"
+        className="submitBtn"
         onClick={async () => {
           if (password !== confirmPassword) {
             console.log('Passwords do not match')
@@ -68,6 +71,10 @@ const Register = () => {
           console.log(result.headers.get('x-auth-token'))
         }}
       >Submit</button>
+
+      <span className='loginText'>
+        Already a user? Log in <a href="/">here!</a>
+      </span>
     </div>
   )
 }

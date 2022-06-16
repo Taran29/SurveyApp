@@ -1,11 +1,14 @@
 import './App.css';
 import React from 'react';
-import Register from './components/Register/Register.jsx';
+import { Navbar, Register } from './components';
 
 const App = () => {
   return (
     <div className="App">
-      <Register />
+      <div className="app-container">
+        <Navbar className="nav" />
+        <Register className="register" />
+      </div>
     </div>
   );
 }

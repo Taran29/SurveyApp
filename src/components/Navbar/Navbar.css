@@ -1,0 +1,50 @@
+.nav-parent {
+  height: 11%;
+  width: 100%;
+  background-color: #ff69b4;
+  position: fixed;
+}
+
+.nav-container {
+  width: 93%;
+  height: 100%;
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  font: 200 1.2em Verdana, Helvetica;
+}
+
+.nav-logo {
+  text-decoration: none;
+  transition: 0.2s ease-out;
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.icon {
+  background: transparent;
+  height: 30%;
+  width: 10%;
+}
+
+.nav-container ul {
+  list-style: none;
+  display: flex;
+}
+
+.nav-link {
+  margin: 0 10px;
+}
+
+.nav-link a {
+  text-decoration: none;
+  transition: 0.2s ease-out;
+  color: #fff;
+}
+
+a:hover {
+  color: #000;
+  transition: 0.2s ease-in;
+}
