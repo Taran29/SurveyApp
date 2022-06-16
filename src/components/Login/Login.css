@@ -1,0 +1,29 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 11%;
+  width: 40%;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+.registerText {
+  align-self: center;
+}
+
+.registerText a {
+  text-decoration: none;
+  color: #ff69b4;
+  transition: 0.1s ease-out;
+}
+
+.registerText a:hover {
+  color: #0096FF;
+  transition: 0.2s ease-in;
+}

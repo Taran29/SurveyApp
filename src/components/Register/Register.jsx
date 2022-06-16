@@ -40,37 +40,31 @@ const Register = () => {
         type="text"
         placeholder="Enter your name..."
         value={name || ''}
-        onChange={(event) => setName(event.target.value)}
+        setValue={name => setName(name)}
       />
       <TextField
         type="email"
         placeholder="Enter your email..."
         value={email || ''}
-        onChange={(event) => {
-          setEmail(event.target.value)
-        }}
+        setValue={email => setEmail(email)}
       />
       <TextField
         type="password"
         placeholder="Enter a new password..."
         value={password || ''}
-        onChange={(event) => {
-          setPassword(event.target.value)
-        }}
+        onChange={password => setPassword(password)}
       />
       <TextField
         type="password"
         placeholder="Confirm your password..."
         value={confirmPassword || ''}
-        onChange={(event) => {
-          setConfirmPassword(event.target.value)
-        }}
+        onChange={confirmPassword => setConfirmPassword(confirmPassword)}
       />
       <button
         type="submit"
         className="submitBtn"
         onClick={btnSubmitFunction}
-      >Submit</button>
+      >Register</button>
 
       <span className='loginText'>
         Already a user? Log in <a href="/">here!</a>

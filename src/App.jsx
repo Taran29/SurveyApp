@@ -1,13 +1,14 @@
 import './App.css';
 import React from 'react';
-import { Navbar, Register } from './components';
+import { Navbar, Register, Login } from './components';
 
 const App = () => {
   return (
     <div className="App">
       <div className="app-container">
-        <Navbar className="nav" />
-        <Register className="register" />
+        <Navbar />
+        {/* <Register /> */}
+        <Login />
       </div>
     </div>
   );
