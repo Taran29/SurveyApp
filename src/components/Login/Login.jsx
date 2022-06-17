@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import TextField from '../../utils/TextField/TextField'
+import { Link } from 'react-router-dom'
 import './Login.css'
 
 const Login = () => {
@@ -50,7 +51,7 @@ const Login = () => {
       >Login</button>
 
       <span className='registerText'>
-        Not a user? Sign in <a href="/">here!</a>
+        Not a user? Sign in <Link to="/register" className="registerRoute">here!</Link>
       </span>
     </div>
   )

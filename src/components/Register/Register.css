@@ -48,13 +48,13 @@
   align-self: center;
 }
 
-.loginText a {
+.loginText .loginRoute {
   text-decoration: none;
   color: #ff69b4;
   transition: 0.1s ease-out;
 }
 
-.loginText a:hover {
+.loginText .loginRoute:hover {
   color: #0096FF;
   transition: 0.2s ease-in;
 }

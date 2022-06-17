@@ -17,13 +17,13 @@
   align-self: center;
 }
 
-.registerText a {
+.registerText .registerRoute {
   text-decoration: none;
   color: #ff69b4;
   transition: 0.1s ease-out;
 }
 
-.registerText a:hover {
+.registerText .registerRoute:hover {
   color: #0096FF;
   transition: 0.2s ease-in;
 }

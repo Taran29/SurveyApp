@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
 import './Register.css'
+import { Link } from 'react-router-dom'
 
 const Register = () => {
   const [name, setName] = useState('')
@@ -29,12 +30,10 @@ const Register = () => {
 
     })
     let message = await result.json()
-    console.log(message.message)
-    console.log(result.headers.get('x-auth-token'))
   }
 
   return (
-    <div className="register-container">
+    <form className="register-container">
       <span className='register-title'>Register</span>
       <TextField
         type="text"
@@ -67,9 +66,9 @@ const Register = () => {
       >Register</button>
 
       <span className='loginText'>
-        Already a user? Log in <a href="/">here!</a>
+        Already a user? Log in <Link to="/login" className="loginRoute">here!</Link>
       </span>
-    </div>
+    </form>
   )
 }
 
