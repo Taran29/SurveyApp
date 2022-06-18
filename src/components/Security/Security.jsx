@@ -1,13 +1,12 @@
 import { useState } from "react"
 import TextField from "../../utils/TextField/TextField"
-import { useNavigate, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import './Security.css'
 
 const Security = () => {
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
 
-  const navigate = useNavigate()
   const location = useLocation()
 
   const submitFunction = async (e) => {

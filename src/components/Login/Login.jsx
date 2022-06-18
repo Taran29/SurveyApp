@@ -44,6 +44,10 @@ const Login = () => {
         setValue={password => setPassword(password)}
       />
 
+      <span className='forgot-pw-text'>
+        <Link to="/forgotPassword" className='registerRoute'>Forgot Password?</Link>
+      </span>
+
       <button
         type="submit"
         className="submitBtn"

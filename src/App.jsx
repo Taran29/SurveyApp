@@ -1,6 +1,12 @@
 import './App.css';
 import React from 'react';
-import { Navbar, Register, Login, Security } from './components';
+import {
+  Navbar,
+  Register,
+  Login,
+  Security,
+  ForgotPassword
+} from './components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const App = () => {
@@ -13,6 +19,7 @@ const App = () => {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/security" element={<Security />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
           </Routes>
         </Router>
       </div>

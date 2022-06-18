@@ -17,13 +17,18 @@
   align-self: center;
 }
 
-.registerText .registerRoute {
+.forgot-pw-text {
+  margin-top: 15px;
+  align-self: center;
+}
+
+.registerRoute {
   text-decoration: none;
   color: #ff69b4;
   transition: 0.1s ease-out;
 }
 
-.registerText .registerRoute:hover {
+.registerRoute:hover {
   color: #0096FF;
   transition: 0.2s ease-in;
 }
