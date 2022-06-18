@@ -1,7 +1,7 @@
 import React from 'react'
 import './TextField.css'
 
-const TextField = ({ type, placeholder, value, setValue }) => {
+const TextField = ({ type, placeholder, value, setValue, onFocusOut }) => {
   return (
     <input
       type={type}
@@ -11,6 +11,7 @@ const TextField = ({ type, placeholder, value, setValue }) => {
       onChange={(event) => {
         setValue(event.target.value)
       }}
+      onBlur={onFocusOut}
     />
   )
 }

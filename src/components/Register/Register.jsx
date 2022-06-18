@@ -1,17 +1,29 @@
 import { useState } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
 import './Register.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [passwordMatch, setPasswordMatch] = useState(true)
+  const [emptyFields, setEmptyFields] = useState(false)
 
-  const btnSubmitFunction = async () => {
+  const navigate = useNavigate()
+
+  const btnSubmitFunction = async (e) => {
+    e.preventDefault()
     if (password !== confirmPassword) {
+      setPasswordMatch(false)
       console.log('Passwords do not match')
+      return
+    }
+
+    if ([name, email, password, confirmPassword].includes('')) {
+      setEmptyFields(true)
+      console.log('Fields cannot be empty')
       return
     }
     const user = {
@@ -19,21 +31,21 @@ const Register = () => {
       email: email,
       password: password
     }
-    let result = await fetch('http://localhost:5000/api/register', {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify(user),
 
-    })
-    let message = await result.json()
+    navigate('/security', { state: { user } })
+  }
+
+  const onFocusOutPassword = () => {
+    if ((password.length === 0) || (confirmPassword.length) === 0) {
+      setPasswordMatch(true)
+    }
+
+    if ((password.length > 0) && (confirmPassword.length) > 0)
+      setPasswordMatch(password === confirmPassword)
   }
 
   return (
-    <form className="register-container">
+    <form className="register-container" onSubmit={e => btnSubmitFunction(e)}>
       <span className='register-title'>Register</span>
       <TextField
         type="text"
@@ -51,19 +63,33 @@ const Register = () => {
         type="password"
         placeholder="Enter a new password..."
         value={password || ''}
-        onChange={password => setPassword(password)}
+        setValue={password => setPassword(password)}
+        onFocusOut={onFocusOutPassword}
       />
       <TextField
         type="password"
         placeholder="Confirm your password..."
         value={confirmPassword || ''}
-        onChange={confirmPassword => setConfirmPassword(confirmPassword)}
+        setValue={confirmPassword => setConfirmPassword(confirmPassword)}
+        onFocusOut={onFocusOutPassword}
       />
+
+      {emptyFields ?
+        <span className="empty-fields">
+          Fields cannot be empty
+        </span> : <></>
+      }
+
+      {!passwordMatch ?
+        <span className="passwords-no-match">
+          Passwords do not match
+        </span> : <></>
+      }
+
       <button
         type="submit"
         className="submitBtn"
-        onClick={btnSubmitFunction}
-      >Register</button>
+      >Next</button>
 
       <span className='loginText'>
         Already a user? Log in <Link to="/login" className="loginRoute">here!</Link>
