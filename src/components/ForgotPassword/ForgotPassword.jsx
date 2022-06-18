@@ -10,12 +10,16 @@ import {
 const ForgotPassword = () => {
 
   const [email, setEmail] = useState('')
+
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
+
   const [showForm, setShowForm] = useState(false)
+
   const [isInvalidEmail, setIsInvalidEmail] = useState(false)
-  const [allowNewPassword, setAllowNewPassword] = useState(false)
   const [inValidAnswer, setInvalidAnswer] = useState(false)
+
+  const [allowNewPassword, setAllowNewPassword] = useState(false)
   const [token, setToken] = useState('')
 
   const [newPassword, setNewPassword] = useState('')

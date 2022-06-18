@@ -1,6 +1,14 @@
 import TextField from "../TextField/TextField"
 
-const VerifyEmail = ({ email, setEmail, setQuestion, setShowForm, setIsInvalidEmail }) => {
+const VerifyEmail = (props) => {
+
+  const {
+    email,
+    setEmail,
+    setQuestion,
+    setShowForm,
+    setIsInvalidEmail
+  } = props
 
   const emailSubmitFunction = async () => {
     const result = await fetch(`http://localhost:5000/api/forgotPassword/user/${email}`, {
