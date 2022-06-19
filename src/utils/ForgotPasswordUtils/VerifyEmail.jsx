@@ -11,12 +11,18 @@ const VerifyEmail = (props) => {
   } = props
 
   const emailSubmitFunction = async () => {
-    const result = await fetch(`http://localhost:5000/api/forgotPassword/user/${email}`, {
-      method: 'GET',
-      mode: 'cors',
-    })
+    let response, result
+    try {
+      result = await fetch(`http://localhost:5000/api/forgotPassword/user/${email}`, {
+        method: 'GET',
+        mode: 'cors',
+      })
 
-    const response = await result.json()
+      response = await result.json()
+    } catch (error) {
+      alert('Email cannot be empty')
+    }
+
     console.log(response)
 
     if (result.status === 200) {

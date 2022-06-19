@@ -64,7 +64,7 @@ const ForgotPassword = () => {
 
       {(isInvalidEmail && !allowNewPassword) ?
         <div>
-          This account does not exist. Please register <Link to="/register">Here</Link>
+          This account does not exist. Please register <Link to="/register">here</Link>
         </div> : <></>
       }
     </div>
