@@ -1,6 +1,9 @@
-import TextField from "../TextField/TextField"
+import { useState } from "react"
+import PasswordInput from "../PasswordInput/PasswordInput"
 
 const UpdatePassword = (props) => {
+
+  const [passwordsMatch, setPasswordsMatch] = useState(true)
 
   const {
     token,
@@ -11,6 +14,7 @@ const UpdatePassword = (props) => {
   } = props
 
   const setNewPasswordFunction = async () => {
+
     const response = await fetch('http://localhost:5000/api/forgotPassword/setNewPassword', {
       method: 'POST',
       mode: 'cors',
@@ -27,23 +31,19 @@ const UpdatePassword = (props) => {
     const result = await response.json()
     console.log(result)
     console.log(response.headers.get('x-auth-token'))
-
   }
 
   return (
     <>
-      <TextField
-        type="password"
-        placeholder="Enter new password..."
-        value={newPassword || ''}
-        setValue={password => setNewPassword(password)}
+      <PasswordInput
+        password={newPassword}
+        setPassword={setNewPassword}
+        confirmPassword={confirmNewPassword}
+        setConfirmPassword={setConfirmNewPassword}
+        passwordMatch={passwordsMatch}
+        setPasswordMatch={setPasswordsMatch}
       />
-      <TextField
-        type="password"
-        placeholder="Confirm new password..."
-        value={confirmNewPassword || ''}
-        setValue={confirmPassword => setConfirmNewPassword(confirmPassword)}
-      />
+
       <button
         className='submitBtn'
         onClick={setNewPasswordFunction}

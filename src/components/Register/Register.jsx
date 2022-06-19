@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
+import PasswordInput from '../../utils/PasswordInput/PasswordInput.jsx'
 import './Register.css'
 import { Link, useNavigate } from 'react-router-dom'
 
@@ -35,15 +36,6 @@ const Register = () => {
     navigate('/security', { state: { user } })
   }
 
-  const onFocusOutPassword = () => {
-    if ((password.length === 0) || (confirmPassword.length) === 0) {
-      setPasswordMatch(true)
-    }
-
-    if ((password.length > 0) && (confirmPassword.length) > 0)
-      setPasswordMatch(password === confirmPassword)
-  }
-
   return (
     <form className="register-container" onSubmit={e => btnSubmitFunction(e)}>
       <span className='register-title'>Register</span>
@@ -59,30 +51,19 @@ const Register = () => {
         value={email || ''}
         setValue={email => setEmail(email)}
       />
-      <TextField
-        type="password"
-        placeholder="Enter a new password..."
-        value={password || ''}
-        setValue={password => setPassword(password)}
-        onFocusOut={onFocusOutPassword}
-      />
-      <TextField
-        type="password"
-        placeholder="Confirm your password..."
-        value={confirmPassword || ''}
-        setValue={confirmPassword => setConfirmPassword(confirmPassword)}
-        onFocusOut={onFocusOutPassword}
+
+      <PasswordInput
+        password={password}
+        setPassword={setPassword}
+        confirmPassword={confirmPassword}
+        setConfirmPassword={setConfirmPassword}
+        passwordMatch={passwordMatch}
+        setPasswordMatch={setPasswordMatch}
       />
 
       {emptyFields ?
         <span className="empty-fields">
           Fields cannot be empty
-        </span> : <></>
-      }
-
-      {!passwordMatch ?
-        <span className="passwords-no-match">
-          Passwords do not match
         </span> : <></>
       }
 
