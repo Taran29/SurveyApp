@@ -37,7 +37,6 @@ const UpdatePassword = (props) => {
     const result = await response.json()
     if (response.status === 200) {
       alert('Password changed successfully')
-      console.log(result.result.email)
       navigate('/login', { state: { email: result.result.email } })
     }
 

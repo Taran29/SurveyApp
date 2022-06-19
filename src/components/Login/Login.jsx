@@ -16,7 +16,7 @@ const Login = () => {
         setEmail(location.state.email)
       }
     } catch (error) { }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const btnSubmitFunction = async (event) => {
     event.preventDefault()
