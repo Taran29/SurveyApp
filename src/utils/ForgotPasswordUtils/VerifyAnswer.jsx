@@ -43,6 +43,7 @@ const VerifyAnswer = (props) => {
 
   return (
     <>
+      <span>Answer the following security question: </span>
       <span>Q. {question}</span>
       <TextField
         type="text"

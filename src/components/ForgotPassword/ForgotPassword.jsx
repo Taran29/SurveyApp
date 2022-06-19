@@ -27,6 +27,7 @@ const ForgotPassword = () => {
 
   return (
     <div className='forgot-pw-container'>
+      <span className='forgot-pw-title'>Forgot Password?</span>
       {(!showForm && !allowNewPassword) ?
         <VerifyEmail
           email={email}

@@ -1,12 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TextField from '../../utils/TextField/TextField'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import './Login.css'
 
 const Login = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const location = useLocation()
+
+  useEffect(() => {
+    try {
+      if (location.state.email) {
+        setEmail(location.state.email)
+      }
+    } catch (error) { }
+  }, [])
 
   const btnSubmitFunction = async (event) => {
     event.preventDefault()
@@ -23,9 +33,18 @@ const Login = () => {
       },
       body: JSON.stringify(user),
     })
-    let message = await result.json()
-    console.log(message.message)
-    console.log(result.headers.get('x-auth-token'))
+
+    if (result.status === 400) {
+      alert('Either email or password is incorrect')
+      return
+    }
+
+    if (result.status === 200) {
+      let message = await result.json()
+      console.log(message.message)
+      console.log(result.headers.get('x-auth-token'))
+      return
+    }
   }
 
   return (
