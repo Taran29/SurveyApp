@@ -32,3 +32,22 @@
   color: #0096FF;
   transition: 0.2s ease-in;
 }
+
+@media (max-width: 650px) {
+  .login-container {
+    width: 90%;
+  }
+
+  .login-title {
+    text-align: left;
+    padding: 10px 0px 0px 8px;
+  }
+
+  .forgot-pw-text {
+    align-self: flex-start;
+  }
+
+  .registerText {
+    align-self: flex-start;
+  }
+}

@@ -66,3 +66,23 @@
   color: #0096FF;
   transition: 0.2s ease-in;
 }
+
+@media (max-width: 650px) {
+  .register-container {
+    width: 90%;
+  }
+
+  .register-title {
+    text-align: left;
+    padding: 10px 0px 0px 8px;
+  }
+
+  .submitBtn {
+    align-self: flex-start;
+    margin: 20px 0px;
+  }
+
+  .loginText {
+    align-self: flex-start;
+  }
+}
