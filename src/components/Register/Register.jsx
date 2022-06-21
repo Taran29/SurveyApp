@@ -24,7 +24,6 @@ const Register = () => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setPasswordMatch(false)
-      console.log('Passwords do not match')
       return
     }
 
