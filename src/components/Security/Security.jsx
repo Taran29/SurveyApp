@@ -40,6 +40,10 @@ const Security = ({ setExistingUser }) => {
       let response = await result.json()
       alert(response.message)
       localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
+      localStorage.setItem('user', JSON.stringify({
+        name: response.result.name,
+        email: response.result.email
+      }))
       setExistingUser(true)
       navigate('/home')
     }

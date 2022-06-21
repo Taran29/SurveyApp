@@ -43,8 +43,14 @@ const Login = ({ setExistingUser }) => {
       return
     }
 
+    let response = await result.json()
+
     if (result.status === 200) {
       localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
+      localStorage.setItem('user', JSON.stringify({
+        name: response.result.name,
+        email: response.result.email
+      }))
       setExistingUser(true)
       navigate('/home')
     }
