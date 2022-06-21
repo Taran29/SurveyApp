@@ -1,5 +1,5 @@
 .nav-parent {
-  height: 11%;
+  height: 10%;
   width: 100%;
   background-color: #ff69b4;
   position: fixed;
@@ -21,6 +21,8 @@
   color: #fff;
   font-size: 1.5em;
   font-weight: 500;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .icon {

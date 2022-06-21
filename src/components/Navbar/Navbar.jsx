@@ -6,6 +6,7 @@ import './Navbar.css'
 const Navbar = () => {
 
   const [width, setWidth] = useState(window.innerWidth);
+  const hamburgerActiveWidth = 650
 
   const updateHeight = () => {
     setWidth(window.innerWidth);
@@ -20,7 +21,7 @@ const Navbar = () => {
     <div className="nav-parent">
       <div className="nav-container">
         <Link to="/" className="nav-logo">Survey</Link>
-        {width > 650 ?
+        {width > hamburgerActiveWidth ?
           <ul className="nav-links">
             <li className="nav-link">
               <Link to="/home">Home</Link>
