@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import TextField from '../../utils/TextField/TextField'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Login.css'
 
-const Login = () => {
+const Login = ({ setExistingUser }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
+    if (localStorage.getItem('auth-token')) {
+      navigate('/home')
+    }
     try {
       if (location.state.email) {
         setEmail(location.state.email)
@@ -40,15 +44,14 @@ const Login = () => {
     }
 
     if (result.status === 200) {
-      let message = await result.json()
-      console.log(message.message)
-      console.log(result.headers.get('x-auth-token'))
-      return
+      localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
+      setExistingUser(true)
+      navigate('/home')
     }
   }
 
   return (
-    <div className="login-container">
+    <form className="login-container" onSubmit={e => btnSubmitFunction(e)}>
       <span className="login-title">Login</span>
       <TextField
         type="email"
@@ -70,13 +73,12 @@ const Login = () => {
       <button
         type="submit"
         className="submitBtn"
-        onClick={btnSubmitFunction}
       >Login</button>
 
       <span className='registerText'>
         Not a user? Sign in <Link to="/register" className="registerRoute">here!</Link>
       </span>
-    </div>
+    </form>
   )
 }
 

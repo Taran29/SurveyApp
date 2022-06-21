@@ -1,25 +1,30 @@
 import './App.css';
-import React from 'react';
+import { useState } from 'react';
 import {
   Navbar,
   Register,
   Login,
   Security,
-  ForgotPassword
+  ForgotPassword,
+  Home
 } from './components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
 const App = () => {
+
+  const [existingUser, setExistingUser] = useState(false)
+
   return (
     <div className="App">
       <div className="app-container">
         <Router>
-          <Navbar />
+          <Navbar existingUser={existingUser} setExistingUser={setExistingUser} />
           <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/security" element={<Security />} />
+            <Route path="/login" element={<Login setExistingUser={setExistingUser} />} />
+            <Route path="/security" element={<Security setExistingUser={setExistingUser} />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
+            <Route path="/home" element={<Home setExistingUser={setExistingUser} />} />
           </Routes>
         </Router>
       </div>

@@ -1,13 +1,20 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import TextField from "../../utils/TextField/TextField"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import './Security.css'
 
-const Security = () => {
+const Security = ({ setExistingUser }) => {
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
 
   const location = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (localStorage.getItem('auth-token')) {
+      navigate('/home')
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const submitFunction = async (e) => {
     e.preventDefault()
@@ -29,9 +36,13 @@ const Security = () => {
       body: JSON.stringify(user)
     })
 
-    console.log(result.headers.get('x-auth-token'))
-    result = await result.json()
-    console.log(result)
+    if (result.status === 200) {
+      let response = await result.json()
+      alert(response.message)
+      localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
+      setExistingUser(true)
+      navigate('/home')
+    }
   }
 
   return (

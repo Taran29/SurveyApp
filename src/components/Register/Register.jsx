@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
 import PasswordInput from '../../utils/PasswordInput/PasswordInput.jsx'
 import './Register.css'
@@ -14,6 +14,12 @@ const Register = () => {
 
   const navigate = useNavigate()
 
+  useEffect(() => {
+    if (localStorage.getItem('auth-token')) {
+      navigate('/home')
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   const btnSubmitFunction = async (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
@@ -22,9 +28,22 @@ const Register = () => {
       return
     }
 
+    if (password.length < 8) {
+      alert('Password cannot be less than 8 characters long')
+      setPassword('')
+      setConfirmPassword('')
+      return
+    }
+
+    if (password.length > 24) {
+      alert('Password cannot be greater than 24 characters long')
+      setPassword('')
+      setConfirmPassword('')
+      return
+    }
+
     if ([name, email, password, confirmPassword].includes('')) {
       setEmptyFields(true)
-      console.log('Fields cannot be empty')
       return
     }
     const user = {
@@ -37,7 +56,7 @@ const Register = () => {
   }
 
   return (
-    <form className="register-container" onSubmit={e => btnSubmitFunction(e)}>
+    <form className="register-container" onSubmit={e => btnSubmitFunction(e)} >
       <span className='register-title'>Register</span>
       <TextField
         type="text"
