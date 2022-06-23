@@ -36,7 +36,7 @@ const CreateSurvey = () => {
         type="submit"
         className='submitBtn'
         onClick={() => navigate('/addQuestions', { state: { title: title, category: category } })}
-      ></button>
+      >Add Questions</button>
 
       {/* {questions.length > 0 ? questions.map((ques, idx) => {
         return (
