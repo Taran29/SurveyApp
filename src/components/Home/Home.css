@@ -18,3 +18,9 @@
   height: 10%;
   width: 15%;
 }
+
+@media (max-width: 650px) {
+  .create-btn {
+    width: 30%;
+  }
+}

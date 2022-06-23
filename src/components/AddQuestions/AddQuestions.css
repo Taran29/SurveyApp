@@ -3,5 +3,90 @@
   flex-direction: column;
   margin: 0 auto;
   width: 40%;
-  margin-top: 11%;
+  margin-top: 11vh;
+}
+
+.survey-title,
+.survey-category {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+  padding-left: 6px;
+}
+
+.option-text {
+  text-align: left;
+  font-size: 20px;
+  margin-top: 5%;
+  padding-left: 6px;
+  margin-bottom: 10px;
+}
+
+.options {
+  margin-top: 8px;
+  width: 100%;
+  transition: 0.15s ease-out;
+  background-color: #fff;
+  padding: 2px 0px;
+  padding-left: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.remove-option {
+  display: none;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.options:hover {
+  transition: 0.15s ease-in;
+  background-color: #D3D3D3
+}
+
+.options:hover .remove-option {
+  transition: 0.15s ease-in;
+  display: block;
+}
+
+.question-options {
+  display: flex;
+}
+
+.button-wrapper {
+  display: flex;
+}
+
+.add-questions-container .submitBtn {
+  margin: 20px 10px 0px 10px;
+  padding: 5px;
+}
+
+@media (max-width: 650px) {
+  .add-questions-container {
+    margin-top: 10%;
+    width: 90%;
+  }
+
+  .survey-title,
+  .survey-category {
+    text-align: left;
+  }
+
+  .button-wrapper {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 450px) {
+  .survey-title {
+    margin-top: 14%;
+  }
+}
+
+@media (max-width: 250px) {
+  .survey-title {
+    margin-top: 18%;
+  }
 }

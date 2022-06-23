@@ -41,6 +41,7 @@ const Security = ({ setExistingUser }) => {
       alert(response.message)
       localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
       localStorage.setItem('user', JSON.stringify({
+        id: response.result._id,
         name: response.result.name,
         email: response.result.email
       }))

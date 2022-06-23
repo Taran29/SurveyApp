@@ -1,7 +1,7 @@
 import React from 'react'
 import './TextField.css'
 
-const TextField = ({ type, placeholder, value, setValue, onFocusOut }) => {
+const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, autoFocus }) => {
   return (
     <input
       type={type}
@@ -12,8 +12,16 @@ const TextField = ({ type, placeholder, value, setValue, onFocusOut }) => {
         setValue(event.target.value)
       }}
       onBlur={onFocusOut}
+      onKeyUp={(e) => {
+        if ((e.key === 'Enter') && (onEnter)) {
+          onEnter()
+        }
+      }}
+      autoFocus={autoFocus}
     />
   )
 }
+
+
 
 export default TextField
