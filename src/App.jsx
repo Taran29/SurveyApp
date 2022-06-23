@@ -8,7 +8,7 @@ import {
   ForgotPassword,
   Home
 } from './components';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
 const App = () => {
 
@@ -20,6 +20,7 @@ const App = () => {
         <Router>
           <Navbar existingUser={existingUser} setExistingUser={setExistingUser} />
           <Routes>
+            <Route path="*" element={<Navigate to="/home" />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login setExistingUser={setExistingUser} />} />
             <Route path="/security" element={<Security setExistingUser={setExistingUser} />} />

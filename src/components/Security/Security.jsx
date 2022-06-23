@@ -28,7 +28,7 @@ const Security = ({ setExistingUser }) => {
       securityAnswer: answer
     }
 
-    let result = await fetch('http://localhost:5000/api/register', {
+    let result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/register`, {
       method: 'POST',
       headers: {
         "Content-Type": 'application/json'

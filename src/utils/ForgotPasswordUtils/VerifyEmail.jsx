@@ -13,7 +13,7 @@ const VerifyEmail = (props) => {
   const emailSubmitFunction = async () => {
     let response, result
     try {
-      result = await fetch(`http://localhost:5000/api/forgotPassword/user/${email}`, {
+      result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/user/${email}`, {
         method: 'GET',
         mode: 'cors',
       })

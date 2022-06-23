@@ -21,7 +21,7 @@ const UpdatePassword = (props) => {
       return
     }
 
-    const response = await fetch('http://localhost:5000/api/forgotPassword/setNewPassword', {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/setNewPassword`, {
       method: 'POST',
       mode: 'cors',
       headers: {

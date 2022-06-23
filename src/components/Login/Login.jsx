@@ -28,7 +28,7 @@ const Login = ({ setExistingUser }) => {
       email: email,
       password: password
     }
-    let result = await fetch('http://localhost:5000/api/login', {
+    let result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {
       method: 'POST',
       mode: 'cors',
       headers: {
