@@ -10,3 +10,11 @@
 .home-text {
   margin-top: 10px;
 }
+
+.create-btn {
+  position: fixed;
+  bottom: 5%;
+  right: 2%;
+  height: 10%;
+  width: 15%;
+}

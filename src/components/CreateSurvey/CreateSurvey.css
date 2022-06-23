@@ -1,0 +1,35 @@
+.create-survey-container {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 11%;
+}
+
+.create-survey-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+@media (max-width: 650px) {
+  .create-survey-container {
+    margin-top: 20%;
+    width: 90%;
+  }
+
+  .create-survey-title {
+    text-align: left;
+    padding: 10px 0px 0px 6px;
+  }
+
+  .submitBtn {
+    align-self: flex-start;
+    margin: 20px 0px;
+  }
+
+  .loginText {
+    align-self: flex-start;
+  }
+}

@@ -15,7 +15,6 @@ const VerifyEmail = (props) => {
     try {
       result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/user/${email}`, {
         method: 'GET',
-        mode: 'cors',
       })
 
       response = await result.json()

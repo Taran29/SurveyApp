@@ -16,10 +16,8 @@ const VerifyAnswer = (props) => {
   const verifyAnswer = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword`, {
       method: 'POST',
-      mode: 'cors',
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({
         email: email,

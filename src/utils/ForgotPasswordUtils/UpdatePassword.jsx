@@ -26,7 +26,6 @@ const UpdatePassword = (props) => {
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
         'x-forgot-password-token': token
       },
       body: JSON.stringify({

@@ -32,6 +32,11 @@ const Home = ({ setExistingUser }) => {
       <h1 className='home-title'>Home</h1>
       <span className='home-text'>Name: {user.name}</span>
       <span className='home-text'>Email: {user.email}</span>
+      <button
+        type="button"
+        className='submitBtn create-btn'
+        onClick={() => navigate('/createSurvey')}
+      >Create Survey</button>
     </div>
   )
 }

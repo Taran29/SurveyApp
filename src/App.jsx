@@ -6,7 +6,9 @@ import {
   Login,
   Security,
   ForgotPassword,
-  Home
+  Home,
+  CreateSurvey,
+  AddQuestions
 } from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -26,6 +28,8 @@ const App = () => {
             <Route path="/security" element={<Security setExistingUser={setExistingUser} />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/home" element={<Home setExistingUser={setExistingUser} />} />
+            <Route path="/createSurvey" element={<CreateSurvey />} />
+            <Route path="/addQuestions" element={<AddQuestions />} />
           </Routes>
         </Router>
       </div>
