@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
   EditableQuestion,
@@ -21,9 +21,29 @@ const AddQuestions = () => {
 
   const [inputOptions, setInputOptions] = useState('')
 
+  const [invalidQuestion, setInvalidQuestion] = useState(false)
+  const [invalidOption, setInvalidOption] = useState(false)
+  const [invalidNumberOfOptions, setInvalidNumberOfOptions] = useState(false)
+
   const addQuestion = () => {
+    if (question.length === 0) {
+      setInvalidQuestion(true)
+      return
+    }
+    setInvalidQuestion(false)
     setQuestions([...questions, question])
     setQuestion('')
+    setInputOptions(true)
+  }
+
+  const addOption = () => {
+    if (option.length === 0) {
+      setInvalidOption(true)
+      return
+    }
+    setInvalidOption(false)
+    setCurrentOptions([...currentOptions, option])
+    setOption('')
   }
 
   const createSurveyFunction = () => {
@@ -50,13 +70,19 @@ const AddQuestions = () => {
     console.log(survey)
   }
 
+  const ScrollToBottom = () => {
+    const ref = useRef()
+    useEffect(() => ref.current?.scrollIntoView())
+    return <div ref={ref} />
+  }
+
   return (
     <div className="add-questions-container">
       <span className='title-text'> {location.state.title} </span>
       <span className='category-text'> {location.state.category} </span>
       {questions.length > 0 && questions.map((_, index) => {
         return (
-          <div key={index} className='editables'>
+          <div key={index} className='editables' >
             <EditableQuestion
               setArray={questions}
               setIndex={index}
@@ -77,6 +103,7 @@ const AddQuestions = () => {
               })}
               {questions.length - 1 !== index && <hr className='line' />}
             </span>
+            {inputOptions && <ScrollToBottom />}
           </div>
         )
       })}
@@ -90,16 +117,14 @@ const AddQuestions = () => {
             value={question || ''}
             setValue={setQuestion}
             onEnter={addQuestion}
+            autoFocus={true}
           />
+          {invalidQuestion && <span className='error-text'>Question cannot be empty</span>}
 
           <div className="button-wrapper">
             <button
               className='submitBtn'
-              onClick={() => {
-                setQuestions([...questions, question])
-                setQuestion('')
-                setInputOptions(true)
-              }}
+              onClick={addQuestion}
             >Add options</button>
             <button
               className='submitBtn'
@@ -112,7 +137,6 @@ const AddQuestions = () => {
           {currentOptions.length > 0 &&
             <div className='editables current-options'>
               {currentOptions.map((_, idx) => {
-                // return <span key={idx} className='editable-current-options'> {idx + 1}. {curr} </span>
                 return <EditableCurrentOption
                   currentOptions={currentOptions}
                   setCurrentOptions={setCurrentOptions}
@@ -128,20 +152,25 @@ const AddQuestions = () => {
             placeholder="Enter option..."
             value={option || ''}
             setValue={setOption}
+            onEnter={addOption}
+            autoFocus={true}
           />
+          {invalidOption && <span className='error-text'>Option cannot be empty</span>}
 
           <div className="button-wrapper">
             <button
               className='submitBtn'
-              onClick={() => {
-                setCurrentOptions([...currentOptions, option])
-                setOption('')
-              }}
+              onClick={addOption}
             >Add option</button>
 
             <button
               className='submitBtn'
               onClick={() => {
+                if (currentOptions.length < 2) {
+                  setInvalidNumberOfOptions(true)
+                  return
+                }
+                setInvalidNumberOfOptions(false)
                 setOptions([...options, currentOptions])
                 setCurrentOptions([])
                 setOption('')
@@ -149,6 +178,7 @@ const AddQuestions = () => {
               }}
             >Add next question</button>
           </div>
+          {invalidNumberOfOptions && <span className='error-text'>Should have at least two options</span>}
         </>
       }
     </div>
