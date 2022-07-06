@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Hamburger from '../Hamburger/Hamburger'
 import './Navbar.css'
@@ -7,6 +6,7 @@ const Navbar = ({ existingUser, setExistingUser }) => {
 
   const logoutFunction = () => {
     localStorage.removeItem('auth-token')
+    localStorage.removeItem('user')
     setExistingUser(false)
   }
 
@@ -18,10 +18,10 @@ const Navbar = ({ existingUser, setExistingUser }) => {
           {existingUser ?
             <>
               <li className="nav-link">
-                <Link to="/changeName">Change Name</Link>
+                <Link to="/changeName">About</Link>
               </li>
               <li className="nav-link">
-                <Link to="/changePassword">Change Password</Link>
+                <Link to="/changePassword">Contact</Link>
               </li>
               <li className="nav-link">
                 <Link to="/login" onClick={logoutFunction}>Logout</Link>

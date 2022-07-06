@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Navbar,
   Register,
@@ -15,6 +15,14 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 const App = () => {
 
   const [existingUser, setExistingUser] = useState(false)
+
+  useEffect(() => {
+    window.addEventListener('storage', () => {
+      if (localStorage.getItem('auth-token') && localStorage.getItem('user')) {
+        setExistingUser(true)
+      } else setExistingUser(false)
+    })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="App">

@@ -12,7 +12,7 @@ const Login = ({ setExistingUser }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (localStorage.getItem('auth-token')) {
+    if (localStorage.getItem('auth-token') && localStorage.getItem('user')) {
       navigate('/home')
     }
     try {
@@ -28,31 +28,35 @@ const Login = ({ setExistingUser }) => {
       email: email,
       password: password
     }
-    let result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
+    try {
+      let result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
 
-    if (result.status === 400) {
-      alert('Either email or password is incorrect')
-      return
-    }
+      if (result.status === 400) {
+        alert('Either email or password is incorrect')
+        return
+      }
 
-    let response = await result.json()
+      let response = await result.json()
 
-    if (result.status === 200) {
-      localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
-      localStorage.setItem('user', JSON.stringify({
-        id: response.result._id,
-        name: response.result.name,
-        email: response.result.email
-      }))
-      setExistingUser(true)
-      navigate('/home')
+      if (result.status === 200) {
+        localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
+        localStorage.setItem('user', JSON.stringify({
+          id: response.result._id,
+          name: response.result.name,
+          email: response.result.email
+        }))
+        setExistingUser(true)
+        navigate('/home')
+      }
+    } catch (ex) {
+      alert('Cannot connect to the server right now. Please try again later')
     }
   }
 

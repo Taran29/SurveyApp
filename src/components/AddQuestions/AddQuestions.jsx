@@ -46,7 +46,7 @@ const AddQuestions = () => {
     setOption('')
   }
 
-  const createSurveyFunction = () => {
+  const createSurveyFunction = async () => {
     const finalQuestions = []
     questions.forEach((ques, index) => {
       let q = {
@@ -67,6 +67,17 @@ const AddQuestions = () => {
     }
 
     console.log(survey)
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/create`, {
+      method: 'POST',
+      body: JSON.stringify(survey),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': localStorage.getItem('auth-token')
+      }
+    })
+
+    const result = await response.json()
+    console.log(response.status, result.result, result.message)
   }
 
   const ScrollToBottom = () => {
