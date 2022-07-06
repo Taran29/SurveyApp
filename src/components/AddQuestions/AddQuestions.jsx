@@ -56,8 +56,7 @@ const AddQuestions = () => {
       finalQuestions.push(q)
     })
 
-    let id = JSON.parse(localStorage.getItem('user'))
-    id = id.id
+    let id = (JSON.parse(localStorage.getItem('user'))).id
 
     const survey = {
       title: location.state.title,
@@ -92,7 +91,7 @@ const AddQuestions = () => {
               setInputOptions={setInputOptions}
             />
             <span className='editable-option-container'>
-              {options[index] && options[index].length > 0 && options[index].map((opt, idx) => {
+              {options[index] && options[index].length > 0 && options[index].map((_, idx) => {
                 return <EditableOption
                   index={index}
                   optionIndex={idx}
@@ -157,6 +156,8 @@ const AddQuestions = () => {
           />
           {invalidOption && <span className='error-text'>Option cannot be empty</span>}
 
+          {invalidNumberOfOptions && <span className='error-text'>Should have at least two options</span>}
+
           <div className="button-wrapper">
             <button
               className='submitBtn'
@@ -178,7 +179,6 @@ const AddQuestions = () => {
               }}
             >Add next question</button>
           </div>
-          {invalidNumberOfOptions && <span className='error-text'>Should have at least two options</span>}
         </>
       }
     </div>
