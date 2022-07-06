@@ -12,7 +12,7 @@ const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, au
         setValue(event.target.value)
       }}
       onBlur={onFocusOut}
-      onKeyUp={(e) => {
+      onKeyDown={(e) => {
         if ((e.key === 'Enter') && (onEnter)) {
           onEnter()
         }

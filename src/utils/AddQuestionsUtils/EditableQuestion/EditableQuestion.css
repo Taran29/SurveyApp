@@ -1,0 +1,34 @@
+.editable-container {
+  display: flex;
+  justify-content: space-between;
+  transition: all 0.2s ease-in;
+  padding: 6px 0px;
+}
+
+.button-container {
+  display: none;
+  transition: all 0.2s ease-in;
+}
+
+.editable-container:hover {
+  background-color: #D3D3D3;
+}
+
+.editable-container:hover .button-container {
+  transition: all 0.2s ease-out;
+  display: block;
+}
+
+.editable-container-textfield {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0px;
+}
+
+.editable-container-textfield input {
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  width: 90%;
+}
