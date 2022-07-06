@@ -20,13 +20,14 @@ const EditableCurrentOption = ({
   }
 
   const onDelete = () => {
+    setEditValue(currentOptions[index + 1])
     setCurrentOptions(oldValue => oldValue.filter((_, idx) => index !== idx))
   }
 
   return (
     <>
       {!isEditing ?
-        <div className='editable-container' onDoubleClick={() => setIsEditing(true)}>
+        <div className='editable-container editable-container-options' onDoubleClick={() => setIsEditing(true)}>
           <span> {index + 1}. {currentOptions[index]} </span>
           <div className='button-container'>
             <span onClick={() => setIsEditing(true)}>✏️</span>
@@ -37,11 +38,12 @@ const EditableCurrentOption = ({
         <div className='editable-container-textfield'>
           <TextField
             type="text"
-            placeholder="Enter option..."
+            placeholder="Enter option(max 100 chars)..."
             value={editValue || ''}
             setValue={setEditValue}
             onEnter={onEnter}
             autoFocus={true}
+            maxLength={100}
           />
 
           <span onClick={onEnter}>✅</span>

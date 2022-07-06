@@ -1,7 +1,7 @@
 import React from 'react'
 import './TextField.css'
 
-const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, autoFocus }) => {
+const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, autoFocus, maxLength }) => {
   return (
     <input
       type={type}
@@ -18,6 +18,7 @@ const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, au
         }
       }}
       autoFocus={autoFocus}
+      maxLength={maxLength || 255}
     />
   )
 }

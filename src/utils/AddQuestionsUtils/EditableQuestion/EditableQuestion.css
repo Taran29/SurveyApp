@@ -6,8 +6,9 @@
 }
 
 .button-container {
-  display: none;
-  transition: all 0.2s ease-in;
+  opacity: 0;
+  transition: all 0.2s linear;
+  margin-left: 10px;
 }
 
 .editable-container:hover {
@@ -15,8 +16,7 @@
 }
 
 .editable-container:hover .button-container {
-  transition: all 0.2s ease-out;
-  display: block;
+  opacity: 1;
 }
 
 .editable-container-textfield {

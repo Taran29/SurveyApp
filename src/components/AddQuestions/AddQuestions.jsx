@@ -86,7 +86,9 @@ const AddQuestions = () => {
               setArray={questions}
               setIndex={index}
               setter={setQuestions}
+              options={options}
               setOptions={setOptions}
+              currentOptions={currentOptions}
               setCurrentOptions={setCurrentOptions}
               setInputOptions={setInputOptions}
             />
@@ -112,11 +114,12 @@ const AddQuestions = () => {
         <>
           <TextField
             type="text"
-            placeholder="Enter question..."
+            placeholder="Enter question(max 200 chars)..."
             value={question || ''}
             setValue={setQuestion}
             onEnter={addQuestion}
             autoFocus={true}
+            maxLength={200}
           />
           {invalidQuestion && <span className='error-text'>Question cannot be empty</span>}
 
@@ -148,11 +151,12 @@ const AddQuestions = () => {
 
           <TextField
             type="text"
-            placeholder="Enter option..."
+            placeholder="Enter option(max 100 chars)..."
             value={option || ''}
             setValue={setOption}
             onEnter={addOption}
             autoFocus={true}
+            maxLength={100}
           />
           {invalidOption && <span className='error-text'>Option cannot be empty</span>}
 
@@ -171,6 +175,7 @@ const AddQuestions = () => {
                   setInvalidNumberOfOptions(true)
                   return
                 }
+                setInvalidOption(false)
                 setInvalidNumberOfOptions(false)
                 setOptions([...options, currentOptions])
                 setCurrentOptions([])

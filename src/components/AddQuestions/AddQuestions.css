@@ -3,7 +3,10 @@
   display: flex;
   flex-direction: column;
   margin-top: 11%;
-  width: 40%;
+  width: 50%;
+  line-break: auto;
+  word-break: break-all;
+  text-align: justify;
 }
 
 .title-text,
@@ -27,6 +30,7 @@
 .line {
   margin-top: 10px;
   margin-bottom: 0px;
+  padding: 0px;
   background-color: black;
 }
 
@@ -44,18 +48,6 @@
 .editable-option-container {
   display: flex;
   flex-direction: column;
-}
-
-.editable-option {
-  margin-top: 5px;
-  width: 100%;
-  word-break: break-all
-}
-
-.editable-current-options {
-  margin-top: 5px;
-  padding-left: 6px;
-  word-break: break-all
 }
 
 @media (max-width: 650px) {

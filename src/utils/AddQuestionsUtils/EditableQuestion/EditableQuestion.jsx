@@ -6,7 +6,9 @@ const EditableQuestion = ({
   setArray,
   setIndex,
   setter,
+  options,
   setOptions,
+  currentOptions,
   setCurrentOptions,
   setInputOptions,
 }) => {
@@ -29,10 +31,15 @@ const EditableQuestion = ({
           <div className='button-container'>
             <span onClick={() => setIsEditing(true)}>✏️</span>
             <span onClick={() => {
+              setEditValue(setArray[setIndex + 1])
               setter(oldValue => oldValue.filter((_, idx) => idx !== setIndex))
+              if (options[setIndex] === currentOptions) {
+                setCurrentOptions([])
+              }
+              if (currentOptions.length === 0) {
+                setInputOptions(false)
+              }
               setOptions(oldValue => oldValue.filter((_, idx) => idx !== setIndex))
-              setCurrentOptions([])
-              setInputOptions(false)
             }}>❌</span>
           </div>
         </div>
@@ -40,11 +47,12 @@ const EditableQuestion = ({
         <div className='editable-container-textfield'>
           <TextField
             type="text"
-            placeholder="Enter option..."
+            placeholder="Enter question(max 200 chars)..."
             value={editValue || ''}
             setValue={setEditValue}
             onEnter={onEnter}
             autoFocus={true}
+            maxLength={200}
           />
 
           <span onClick={onEnter}>✅</span>
