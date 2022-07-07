@@ -38,3 +38,22 @@
   margin: 0px;
   width: 45%;
 }
+
+@media (max-width: 650px) {
+  .survey-created-container {
+    width: 90%;
+    margin-top: 20%;
+  }
+
+  .survey-created-message {
+    text-align: left;
+  }
+
+  .button-wrapper {
+    flex-direction: column;
+  }
+
+  .button-wrapper button {
+    margin: 10px 0px;
+  }
+}

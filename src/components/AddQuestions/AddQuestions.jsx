@@ -50,11 +50,10 @@ const AddQuestions = () => {
   const createSurveyFunction = async () => {
     const finalQuestions = []
     questions.forEach((ques, index) => {
-      let q = {
+      finalQuestions.push({
         question: ques,
         options: options[index]
-      }
-      finalQuestions.push(q)
+      })
     })
 
     let id = (JSON.parse(localStorage.getItem('user'))).id

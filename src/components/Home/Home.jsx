@@ -32,6 +32,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <h2 className='home-container-title'>Available Surveys</h2>
       {surveys.map((survey, idx) => {
         return (
           <div key={idx} className='home-survey'>
@@ -51,7 +52,7 @@ const Home = () => {
         type="button"
         className='submitBtn create-btn'
         onClick={() => navigate('/createSurvey')}
-      >Create Survey</button>
+      >➕</button>
     </div>
   )
 }
