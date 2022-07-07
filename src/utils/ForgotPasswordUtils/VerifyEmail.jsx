@@ -22,8 +22,6 @@ const VerifyEmail = (props) => {
       alert('Email cannot be empty')
     }
 
-    console.log(response)
-
     if (result.status === 200) {
       setIsInvalidEmail(false)
       setQuestion(response.securityQuestion)

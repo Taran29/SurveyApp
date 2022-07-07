@@ -3,23 +3,57 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}
-
-.home-text {
-  margin-top: 10px;
+  margin-top: 11%;
 }
 
 .create-btn {
   position: fixed;
   bottom: 5%;
   right: 2%;
-  height: 10%;
-  width: 15%;
+  height: 50px;
+  width: 170px;
 }
 
+.home-survey {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  transition: all 0.2s linear;
+  padding: 10px;
+}
+
+.home-survey:hover {
+  background-color: #E3E3E3;
+}
+
+.home-survey-meta {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.home-survey-title {
+  font-size: 1.5em;
+}
+
+.home-survey-category {
+  font-size: 14px;
+}
+
+.fill-survey-btn {
+  width: 20%;
+}
+
+
+
 @media (max-width: 650px) {
+  .home-container {
+    margin-top: 20%;
+  }
+
   .create-btn {
     width: 30%;
   }

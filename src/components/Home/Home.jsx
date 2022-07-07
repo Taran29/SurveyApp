@@ -9,29 +9,49 @@ const Home = ({ setExistingUser }) => {
     email: ''
   })
 
+  const [surveys, setSurveys] = useState([])
+
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!localStorage.getItem('auth-token')) {
-      navigate('/login')
-    } else {
-      setExistingUser(true)
-    }
+    const getSurveys = async () => {
+      let fetchObj = {
+        method: 'GET'
+      }
+      if (localStorage.getItem('auth-token')) {
+        fetchObj = {
+          method: 'GET',
+          headers: {
+            'x-auth-token': localStorage.getItem('auth-token')
+          }
+        }
+      }
 
-    if (localStorage.getItem('user')) {
-      let currentUser = JSON.parse(localStorage.getItem('user'))
-      setUser({
-        name: currentUser.name,
-        email: currentUser.email
-      })
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/`, fetchObj)
+
+      const result = await response.json()
+      setSurveys(result.body)
     }
+    getSurveys()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="home-container">
-      <h1 className='home-title'>Home</h1>
-      <span className='home-text'>Name: {user.name}</span>
-      <span className='home-text'>Email: {user.email}</span>
+      {surveys.map((survey, idx) => {
+        return (
+          <div key={idx} className='home-survey'>
+            <div className='home-survey-meta'>
+              <span className='home-survey-title'> {survey.title} </span>
+              <span className='home-survey-category'> {survey.category} </span>
+            </div>
+            <button
+              type="button"
+              className='submitBtn fill-survey-btn'
+              onClick={() => console.log(idx)}
+            >Fill</button>
+          </div>
+        )
+      })}
       <button
         type="button"
         className='submitBtn create-btn'

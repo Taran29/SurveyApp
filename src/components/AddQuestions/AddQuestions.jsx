@@ -61,6 +61,7 @@ const AddQuestions = () => {
     const survey = {
       title: location.state.title,
       category: location.state.category,
+      private: location.state.isPrivate,
       questions: finalQuestions,
       createdBy: id,
       createdAt: new Date(Date.now())
@@ -90,6 +91,7 @@ const AddQuestions = () => {
     <div className="add-questions-container">
       <span className='title-text'> {location.state.title} </span>
       <span className='category-text'> {location.state.category} </span>
+      <span className='category-text'> Visibility: {location.state.isPrivate ? 'Private' : 'Public'} </span>
       {questions.length > 0 && questions.map((_, index) => {
         return (
           <div key={index} className='editables' >

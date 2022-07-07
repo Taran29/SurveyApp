@@ -17,11 +17,14 @@ const App = () => {
   const [existingUser, setExistingUser] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('storage', () => {
+    const setUser = () => {
       if (localStorage.getItem('auth-token') && localStorage.getItem('user')) {
         setExistingUser(true)
       } else setExistingUser(false)
-    })
+    }
+    setUser()
+    window.addEventListener('storage', setUser)
+    return () => window.removeEventListener('storage', setUser)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

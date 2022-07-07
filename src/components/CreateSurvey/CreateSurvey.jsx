@@ -8,11 +8,21 @@ const CreateSurvey = () => {
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
 
+  const [isPrivate, setIsPrivate] = useState(false)
+
   const navigate = useNavigate()
 
   const formSubmitFunction = (e) => {
     e.preventDefault()
-    navigate('/addQuestions', { state: { title: title, category: category } })
+    navigate('/addQuestions', { state: { title: title, category: category, isPrivate: isPrivate } })
+  }
+
+  const setPrivacy = (e) => {
+    if (e.target.id === 'private') {
+      setIsPrivate(true)
+      return
+    }
+    setIsPrivate(false)
   }
 
   return (
@@ -31,12 +41,35 @@ const CreateSurvey = () => {
         setValue={setCategory}
       />
 
+      <div className='radio-group'>
+        <div>
+          <input
+            type="radio"
+            name="private"
+            id="public"
+            onChange={(e) => setPrivacy(e)}
+          />
+          <label htmlFor='public' >Public (default)</label>
+        </div>
+
+        <div>
+          <input
+            type="radio"
+            name="private"
+            id="private"
+            onChange={(e) => setPrivacy(e)}
+          />
+          <label htmlFor="private">Private</label>
+        </div>
+
+      </div>
+
       <button
         type="submit"
         className='submitBtn'
         onClick={e => formSubmitFunction(e)}
       >Add Questions</button>
-    </form>
+    </form >
   )
 }
 

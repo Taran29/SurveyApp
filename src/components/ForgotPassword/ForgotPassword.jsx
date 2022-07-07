@@ -28,7 +28,7 @@ const ForgotPassword = () => {
   return (
     <div className='forgot-pw-container'>
       <span className='forgot-pw-title'>Forgot Password?</span>
-      {(!showForm && !allowNewPassword) ?
+      {(!showForm && !allowNewPassword) &&
         <VerifyEmail
           email={email}
           setEmail={setEmail}
@@ -36,10 +36,9 @@ const ForgotPassword = () => {
           setShowForm={setShowForm}
           setIsInvalidEmail={setIsInvalidEmail}
         />
-        : <></>
       }
 
-      {(showForm && !allowNewPassword) ?
+      {(showForm && !allowNewPassword) &&
         <VerifyAnswer
           question={question}
           answer={answer}
@@ -49,10 +48,10 @@ const ForgotPassword = () => {
           email={email}
           setToken={setToken}
           setAllowNewPassword={setAllowNewPassword}
-        /> : <></>
+        />
       }
 
-      {allowNewPassword ?
+      {allowNewPassword &&
         <UpdatePassword
           token={token}
           newPassword={newPassword}
@@ -60,12 +59,12 @@ const ForgotPassword = () => {
           confirmNewPassword={confirmNewPassword}
           setConfirmNewPassword={setConfirmNewPassword}
         />
-        : <></>}
+      }
 
-      {(isInvalidEmail && !allowNewPassword) ?
+      {(isInvalidEmail && !allowNewPassword) &&
         <div>
           This account does not exist. Please register <Link to="/register">here</Link>
-        </div> : <></>
+        </div>
       }
     </div>
   )

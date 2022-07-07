@@ -13,6 +13,20 @@
   margin-top: 20px;
 }
 
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.radio-group div {
+  margin: 5px 0px;
+}
+
+.radio-group div label {
+  margin-left: 5px;
+}
+
 @media (max-width: 650px) {
   .create-survey-container {
     margin-top: 20%;
