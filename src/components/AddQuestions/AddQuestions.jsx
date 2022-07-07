@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {
   EditableQuestion,
   EditableOption,
@@ -11,6 +11,7 @@ import './AddQuestions.css'
 const AddQuestions = () => {
 
   const location = useLocation()
+  const navigate = useNavigate()
 
   const [question, setQuestion] = useState('')
   const [questions, setQuestions] = useState([])
@@ -67,7 +68,6 @@ const AddQuestions = () => {
       createdAt: new Date(Date.now())
     }
 
-    console.log(survey)
     const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/create`, {
       method: 'POST',
       body: JSON.stringify(survey),
@@ -78,7 +78,16 @@ const AddQuestions = () => {
     })
 
     const result = await response.json()
-    console.log(response.status, result.result, result.message)
+
+    if (response.status === 404 || response.status === 400) {
+      alert(result.message)
+      return
+    }
+
+    if (response.status === 200) {
+      console.log(result.result, result.message)
+      navigate('/surveyCreated', { state: { survey: result.result } })
+    }
   }
 
   const ScrollToBottom = () => {

@@ -2,12 +2,7 @@ import { useState, useEffect } from 'react'
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 
-const Home = ({ setExistingUser }) => {
-
-  const [user, setUser] = useState({
-    name: '',
-    email: ''
-  })
+const Home = () => {
 
   const [surveys, setSurveys] = useState([])
 
