@@ -66,7 +66,7 @@ const CreateSurvey = () => {
             onChange={(e) => setPrivacy(e)}
             checked={true}
           />
-          <label htmlFor='public' >Public (default)</label>
+          <label htmlFor='public' >Public</label>
         </div>
 
         <div>

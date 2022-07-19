@@ -13,6 +13,9 @@ const FillSurvey = () => {
   const [surveyNotFound, setSurveyNotFound] = useState(false)
   const [isCreator, setIsCreator] = useState(false)
 
+  const [userSelections, setUserSelections] = useState({})
+  const [notFilled, setNotFilled] = useState(false)
+
   let { id } = useParams()
   const navigate = useNavigate()
 
@@ -56,15 +59,51 @@ const FillSurvey = () => {
     getSurvey()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const submitSurvey = () => {
+  const updateOption = (index, idx) => {
+    let selections = userSelections
+    selections[index] = idx
+    setUserSelections(selections)
+  }
 
+  const submitSurvey = async (e) => {
+    e.preventDefault()
+
+    if (Object.keys(userSelections).length !== survey.questions.length) {
+      setNotFilled(true)
+      return
+    }
+    setNotFilled(false)
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/fill/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': localStorage.getItem('auth-token')
+        },
+        body: JSON.stringify({
+          userSelections: userSelections
+        })
+      })
+
+      if (response.status === 502) {
+        alert('Could not connect to our database. Please try again later.')
+        return
+      }
+
+      if (response.status === 200) {
+        alert('Survey filled successfully')
+        navigate('/home')
+      }
+    } catch (ex) {
+      setIsConnection(false)
+    }
   }
 
   return (
-    <div className='fill-container'>
-
+    <form className='fill-container' onSubmit={(e) => submitSurvey(e)}>
       {!isCreator && !surveyNotFound && isConnection && isUser && !isLoading &&
-        <>
+        <div className='fill-wrapper'>
           <h2 className='fill-title'> {survey.title} </h2>
           <p className='fill-category'> {survey.category} </p>
 
@@ -79,8 +118,10 @@ const FillSurvey = () => {
                         <input
                           type="radio"
                           name={`option${index}`}
+                          className='radio-button'
+                          onChange={() => updateOption(index, idx)}
                         />
-                        <label htmlFor={`option${index}`}> {opt.option} </label>
+                        <label htmlFor={`option${index}`} className='radio-label'> {opt.option} </label>
                       </div>
                     </div>
                   )
@@ -89,16 +130,19 @@ const FillSurvey = () => {
             )
           })}
 
-          <div className='button-wrapper'>
+          {notFilled && <span className='error-text'>All questions are required</span>}
+
+          <div className='fill-button-wrapper'>
             <button
-              className='submitBtn'
-              onClick={submitSurvey}
+              type='submit'
+              className='submitBtn fill-button'
             >Submit</button>
             <button
-              className='submitBtn'
+              type='reset'
+              className='submitBtn fill-button'
             >Reset</button>
           </div>
-        </>
+        </div>
       }
 
       {isLoading && <span>Loading...</span>}
@@ -114,7 +158,7 @@ const FillSurvey = () => {
           >Login</button>
         </div>
       }
-    </div>
+    </form>
   )
 }
 

@@ -106,8 +106,16 @@ const Home = () => {
         <div>Cannot connect to the server right now. Please check your internet connection and try again later.</div>
       }
 
-      {aboveTotal &&
-        <div>Invalid request. URL exceeds maximum page number.</div>
+      {aboveTotal && pageNumber > 1 && <div>Invalid request. URL exceeds maximum page number.</div>}
+      {aboveTotal && surveys.length === 0 && pageNumber === 1 &&
+        <div>
+          Sorry! No public unfilled surveys available at this time.
+          <button
+            type="button"
+            className='submitBtn create-btn'
+            onClick={() => navigate('/createSurvey')}
+          >➕</button>
+        </div>
       }
     </div>
   )
