@@ -16,10 +16,11 @@ const Home = () => {
   let { page } = useParams()
 
   useEffect(() => {
-    console.log(page)
     setAboveTotal(false)
     if (isNaN(parseInt(page)) || parseInt(page) < 1) {
       setPageNumber(1)
+      // eslint-disable-next-line
+      page = 1
       navigate(`/home/page/${1}`)
     } else {
       setPageNumber(parseInt(page))
@@ -39,7 +40,7 @@ const Home = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/page/${pageNumber}`, fetchObj)
+        const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/page/${page}`, fetchObj)
         const result = await response.json()
         setSurveys(result.body.surveys)
         setTotalPages(result.body.totalPages)
@@ -49,14 +50,14 @@ const Home = () => {
       } catch (ex) {
         setIsConnection(false)
       }
-
     }
+
     getSurveys()
   }, [pageNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="home-container">
-      {isConnection && !aboveTotal &&
+      {(isConnection && !aboveTotal) &&
         <>
           <h2 className='home-container-title'>Available Surveys</h2>
           {surveys.map((survey, idx) => {
@@ -69,7 +70,7 @@ const Home = () => {
                 <button
                   type="button"
                   className='submitBtn fill-survey-btn'
-                  onClick={() => console.log(idx)}
+                  onClick={() => navigate(`/fillSurvey/${surveys[idx]._id}`)}
                 >Fill</button>
               </div>
             )

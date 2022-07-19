@@ -8,12 +8,25 @@ const CreateSurvey = () => {
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
 
+  const [invalidTitle, setInvalidTitle] = useState(false)
+  const [invalidCategory, setInvalidCategory] = useState(false)
+
   const [isPrivate, setIsPrivate] = useState(false)
 
   const navigate = useNavigate()
 
   const formSubmitFunction = (e) => {
     e.preventDefault()
+
+    if (title.length === 0) {
+      setInvalidTitle(true)
+      return
+    } else setInvalidTitle(false)
+    if (category.length === 0) {
+      setInvalidCategory(true)
+      return
+    } else setInvalidCategory(false)
+
     navigate('/addQuestions', { state: { title: title, category: category, isPrivate: isPrivate } })
   }
 
@@ -34,12 +47,15 @@ const CreateSurvey = () => {
         value={title || ''}
         setValue={setTitle}
       />
+      {invalidTitle && <span className='error-text'>Title cannot be empty</span>}
+
       <TextField
         type="text"
         placeholder="Enter category..."
         value={category || ''}
         setValue={setCategory}
       />
+      {invalidCategory && <span className='error-text'>Category cannot be empty</span>}
 
       <div className='radio-group'>
         <div>
@@ -48,6 +64,7 @@ const CreateSurvey = () => {
             name="private"
             id="public"
             onChange={(e) => setPrivacy(e)}
+            checked={true}
           />
           <label htmlFor='public' >Public (default)</label>
         </div>

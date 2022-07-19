@@ -3,7 +3,7 @@
   flex-direction: column;
   width: 70%;
   margin: 0 auto;
-  margin-top: 11%;
+  margin-top: 15vh;
 }
 
 .survey-created-message {
@@ -42,7 +42,6 @@
 @media (max-width: 650px) {
   .survey-created-container {
     width: 90%;
-    margin-top: 20%;
   }
 
   .survey-created-message {

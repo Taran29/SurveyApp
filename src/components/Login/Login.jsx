@@ -53,6 +53,11 @@ const Login = ({ setExistingUser }) => {
           email: response.result.email
         }))
         setExistingUser(true)
+        console.log(location.state.path)
+        if (location.state.path) {
+          navigate(location.state.path)
+          return
+        }
         navigate('/home')
       }
     } catch (ex) {
