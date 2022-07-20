@@ -40,6 +40,7 @@ const VerifyEmail = (props) => {
         placeholder="Enter your email..."
         value={email || ''}
         setValue={email => setEmail(email)}
+        onEnter={emailSubmitFunction}
       />
       <button
         className='submitBtn'

@@ -35,7 +35,7 @@ const Profile = ({ setExistingUser }) => {
         <div className='user-action'>Change Name</div>
         <span>&gt;</span>
       </div>
-      <div className="profile-item">
+      <div className="profile-item" onClick={() => navigate('/changePassword')}>
         <div className='user-action'>Change Password</div>
         <span>&gt;</span>
       </div>

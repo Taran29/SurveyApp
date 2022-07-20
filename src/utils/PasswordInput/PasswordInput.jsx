@@ -8,7 +8,8 @@ const PasswordInput = (props) => {
     confirmPassword,
     setConfirmPassword,
     passwordMatch,
-    setPasswordMatch
+    setPasswordMatch,
+    setNewPasswordFunction
   } = props
 
   const onFocusOutPassword = () => {
@@ -28,6 +29,8 @@ const PasswordInput = (props) => {
         value={password || ''}
         setValue={password => setPassword(password)}
         onFocusOut={onFocusOutPassword}
+        onEnter={setNewPasswordFunction}
+        autoFocus={true}
       />
       <TextField
         type="password"
@@ -35,6 +38,7 @@ const PasswordInput = (props) => {
         value={confirmPassword || ''}
         setValue={confirmPassword => setConfirmPassword(confirmPassword)}
         onFocusOut={onFocusOutPassword}
+        onEnter={setNewPasswordFunction}
       />
 
       {!passwordMatch ?

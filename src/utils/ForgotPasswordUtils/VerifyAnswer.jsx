@@ -12,7 +12,6 @@ const VerifyAnswer = (props) => {
     setAllowNewPassword
   } = props
 
-
   const verifyAnswer = async () => {
     const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword`, {
       method: 'POST',
@@ -48,6 +47,8 @@ const VerifyAnswer = (props) => {
         placeholder="Enter your security question answer..."
         value={answer || ''}
         setValue={answer => setAnswer(answer)}
+        onEnter={verifyAnswer}
+        autoFocus={true}
       />
 
       {inValidAnswer ?

@@ -13,13 +13,15 @@ const UpdatePassword = (props) => {
     newPassword,
     setNewPassword,
     confirmNewPassword,
-    setConfirmNewPassword
+    setConfirmNewPassword,
+    isLoggedIn
   } = props
 
   const setNewPasswordFunction = async () => {
-    if (!passwordsMatch) {
+    if (newPassword !== confirmNewPassword) {
+      setPasswordsMatch(false)
       return
-    }
+    } else setPasswordsMatch(true)
 
     const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/setNewPassword`, {
       method: 'POST',
@@ -36,7 +38,8 @@ const UpdatePassword = (props) => {
     const result = await response.json()
     if (response.status === 200) {
       alert('Password changed successfully')
-      navigate('/login', { state: { email: result.result.email } })
+      if (isLoggedIn) navigate('/profile')
+      else navigate('/login', { state: { email: result.result.email } })
     }
 
     if (response.status === 400) {
@@ -59,6 +62,7 @@ const UpdatePassword = (props) => {
         setConfirmPassword={setConfirmNewPassword}
         passwordMatch={passwordsMatch}
         setPasswordMatch={setPasswordsMatch}
+        setNewPasswordFunction={setNewPasswordFunction}
       />
 
       <button
@@ -67,6 +71,10 @@ const UpdatePassword = (props) => {
       >Submit</button>
     </>
   )
+}
+
+UpdatePassword.defaultProps = {
+  isLoggedIn: false
 }
 
 export default UpdatePassword
