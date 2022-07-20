@@ -21,7 +21,7 @@ const FilledSurveys = () => {
       setPageNumber(1)
       // eslint-disable-next-line
       page = 1
-      navigate(`/home/page/${1}`)
+      navigate(`/filledSurveys/page/${1}`)
     } else {
       setPageNumber(parseInt(page))
     }
@@ -59,6 +59,7 @@ const FilledSurveys = () => {
                 </div>
                 <button
                   className='submitBtn fill-survey-btn'
+                  onClick={() => navigate(`/filledSurvey/${survey._id}`, { state: { pageNumber: pageNumber } })}
                 >View</button>
               </div>
             )

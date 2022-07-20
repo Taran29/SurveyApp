@@ -1,0 +1,42 @@
+.filled-survey-container {
+  margin: 0 auto;
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.options-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.options-container span {
+  margin: 3px 0px;
+}
+
+.selected-option {
+  font-weight: 600;
+  background-color: #EBEBEB;
+  padding: 5px 0px 5px 5px;
+}
+
+.unselected-option {
+  opacity: 0.3;
+  padding-left: 5px;
+}
+
+.filled-survey-button {
+  align-self: flex-start;
+  margin-left: 10px;
+}
+
+@media (max-width:650px) {
+  .filled-survey-container {
+    width: 90%;
+  }
+
+  .filled-survey-button {
+    width: 50%;
+  }
+}

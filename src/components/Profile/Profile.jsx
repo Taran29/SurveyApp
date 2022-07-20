@@ -41,7 +41,6 @@ const Profile = ({ setExistingUser }) => {
       </div>
       <div className="button-wrapper profile-button-wrapper">
         <button className='submitBtn profile-button' onClick={logoutFunction}>Logout</button>
-        <button className='submitBtn profile-button'>Delete account</button>
       </div>
     </div>
   )
