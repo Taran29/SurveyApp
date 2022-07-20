@@ -27,7 +27,7 @@ const Profile = ({ setExistingUser }) => {
         <div className='user-action'>Created Surveys</div>
         <span>&gt;</span>
       </div>
-      <div className="profile-item">
+      <div className="profile-item" onClick={() => navigate(`/filledSurveys/page/${1}`)}>
         <div className='user-action'>Filled Surveys</div>
         <span>&gt;</span>
       </div>

@@ -93,12 +93,6 @@ const Home = () => {
               }}
             >🡒</button>
           </div>
-
-          <button
-            type="button"
-            className='submitBtn create-btn'
-            onClick={() => navigate('/createSurvey')}
-          >➕</button>
         </>
       }
 
@@ -110,13 +104,13 @@ const Home = () => {
       {aboveTotal && surveys.length === 0 && pageNumber === 1 &&
         <div>
           Sorry! No public unfilled surveys available at this time.
-          <button
-            type="button"
-            className='submitBtn create-btn'
-            onClick={() => navigate('/createSurvey')}
-          >➕</button>
         </div>
       }
+      <button
+        type="button"
+        className='submitBtn create-btn'
+        onClick={() => navigate('/createSurvey')}
+      >➕</button>
     </div>
   )
 }
