@@ -4,12 +4,6 @@ import './Navbar.css'
 
 const Navbar = ({ existingUser, setExistingUser }) => {
 
-  const logoutFunction = () => {
-    localStorage.removeItem('auth-token')
-    localStorage.removeItem('user')
-    setExistingUser(false)
-  }
-
   return (
     <div className="nav-parent">
       <div className="nav-container">
@@ -24,7 +18,7 @@ const Navbar = ({ existingUser, setExistingUser }) => {
                 <Link to="/changePassword">Contact</Link>
               </li>
               <li className="nav-link">
-                <Link to="/login" onClick={logoutFunction}>Logout</Link>
+                <Link to="/profile">Profile</Link>
               </li>
             </>
             :

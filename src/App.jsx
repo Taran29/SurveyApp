@@ -10,7 +10,8 @@ import {
   CreateSurvey,
   AddQuestions,
   SurveyCreated,
-  FillSurvey
+  FillSurvey,
+  Profile
 } from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -45,6 +46,7 @@ const App = () => {
             <Route path="/addQuestions" element={<AddQuestions />} />
             <Route path="/surveyCreated" element={<SurveyCreated />} />
             <Route path="/fillSurvey/:id" element={<FillSurvey />} />
+            <Route path="/profile" element={<Profile setExistingUser={setExistingUser} />} />
           </Routes>
         </Router>
       </div>
