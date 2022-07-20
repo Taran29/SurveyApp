@@ -1,8 +1,10 @@
+import { useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Profile.css'
 
 const Profile = ({ setExistingUser }) => {
-  const user = JSON.parse(localStorage.getItem('user'))
+  const [user, setUser] = useState({})
   const navigate = useNavigate()
 
   const logoutFunction = () => {
@@ -11,6 +13,11 @@ const Profile = ({ setExistingUser }) => {
     setExistingUser(false)
     navigate('/login')
   }
+
+  useEffect(() => {
+    if (!localStorage.getItem('user') || !localStorage.getItem('auth-token')) logoutFunction()
+    else setUser(JSON.parse(localStorage.getItem('user')))
+  }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className='profile-container'>

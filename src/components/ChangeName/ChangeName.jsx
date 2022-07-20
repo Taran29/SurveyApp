@@ -1,15 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
 import { useNavigate } from 'react-router-dom'
 import './ChangeName.css'
 
 
 const ChangeName = () => {
-
-  const user = JSON.parse(localStorage.getItem('user'))
-  const [name, setName] = useState(user.name)
-
+  const [name, setName] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!localStorage.getItem('user') || !localStorage.getItem('auth-token')) {
+      localStorage.removeItem('user')
+      localStorage.removeItem('auth-token')
+      navigate('/login')
+    } else {
+      setName((JSON.parse(localStorage.getItem('user'))).name)
+    }
+  }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   const formSubmit = async (e) => {
     e.preventDefault()
