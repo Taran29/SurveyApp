@@ -24,7 +24,7 @@ const Profile = ({ setExistingUser }) => {
         <div className='user-action'>Filled Surveys</div>
         <span>&gt;</span>
       </div>
-      <div className="profile-item">
+      <div className="profile-item" onClick={() => navigate('/changeName')}>
         <div className='user-action'>Change Name</div>
         <span>&gt;</span>
       </div>

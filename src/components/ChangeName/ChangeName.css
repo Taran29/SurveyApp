@@ -1,0 +1,26 @@
+.change-name-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 11%;
+  width: 40%;
+}
+
+.change-name-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
+@media (max-width: 650px) {
+  .change-name-container {
+    margin-top: 20%;
+    width: 90%;
+  }
+
+  .change-name-title {
+    text-align: left;
+    padding: 10px 0px 0px 6px;
+  }
+}
