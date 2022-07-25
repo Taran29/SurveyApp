@@ -23,6 +23,4 @@ const TextField = ({ type, placeholder, value, setValue, onFocusOut, onEnter, au
   )
 }
 
-
-
 export default TextField

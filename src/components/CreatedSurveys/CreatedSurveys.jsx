@@ -47,28 +47,30 @@ const CreatedSurveys = () => {
   return (
     <div className='filled-surveys-container'>
       <h2>Created Surveys</h2>
-
       {createdSurveys.length > 0 && createdSurveys.map((survey, index) => {
         return (
-          <div className='home-survey filled-survey' key={index}>
+          <div
+            className='home-survey filled-survey'
+            key={index}
+            onClick={() => navigate(`/stats/${survey._id}`)}
+          >
             <div className="home-survey-meta">
               <div className="home-survey-title">{survey.title}</div>
               <div className="home-survey-category">{survey.category}</div>
             </div>
             <button
               className='submitBtn fill-survey-btn'
-              onClick={() => navigate(`/stats/${survey._id}`)}
             >Stats</button>
           </div>
         )
       })}
 
-      <PageControls
+      {!aboveTotal && <PageControls
         pageNumber={pageNumber}
         setPageNumber={setPageNumber}
         totalPages={totalPages}
         baseNavigate={'createdSurveys'}
-      />
+      />}
       {aboveTotal && pageNumber > 1 && <div className='warning-text'>Invalid request. URL exceeds maximum page number.</div>}
       {
         createdSurveys.length === 0 && pageNumber === 1 &&

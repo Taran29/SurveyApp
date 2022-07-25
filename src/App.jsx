@@ -16,7 +16,8 @@ import {
   ChangePassword,
   FilledSurveys,
   FilledSurvey,
-  CreatedSurveys
+  CreatedSurveys,
+  Stats
 } from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="/filledSurvey/:id" element={<FilledSurvey />} />
             <Route path="/createdSurveys" element={<CreatedSurveys />} />
             <Route path="/createdSurveys/page/:page" element={<CreatedSurveys />} />
+            <Route path="/stats/:surveyID" element={<Stats />} />
           </Routes>
         </Router>
       </div>
