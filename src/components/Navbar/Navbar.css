@@ -49,18 +49,22 @@
   margin: 0 10px;
 }
 
-.nav-link a {
+.nav-link a,
+.nav-link span {
   text-decoration: none;
   transition: 0.2s ease-out;
   color: #fff;
+  cursor: pointer;
 }
 
-.nav-link a:focus {
+.nav-link a:focus,
+.nav-link span:focus {
   outline: none;
   color: #000;
 }
 
-a:hover {
+a:hover,
+.nav-link span:hover {
   color: #000;
   transition: 0.2s ease-in;
 }

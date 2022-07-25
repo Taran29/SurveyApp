@@ -90,7 +90,7 @@ const Login = ({ setExistingUser }) => {
       >Login</button>
 
       <span className='registerText'>
-        Not a user? Sign in <Link to="/register" className="registerRoute">here!</Link>
+        Not a user? Sign up <Link to="/register" className="registerRoute">here!</Link>
       </span>
     </form>
   )

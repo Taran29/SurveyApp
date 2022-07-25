@@ -17,7 +17,8 @@ import {
   FilledSurveys,
   FilledSurvey,
   CreatedSurveys,
-  Stats
+  Stats,
+  About
 } from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -62,6 +63,7 @@ const App = () => {
             <Route path="/createdSurveys" element={<CreatedSurveys />} />
             <Route path="/createdSurveys/page/:page" element={<CreatedSurveys />} />
             <Route path="/stats/:surveyID" element={<Stats />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </Router>
       </div>

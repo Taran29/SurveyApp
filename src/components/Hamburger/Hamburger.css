@@ -57,12 +57,16 @@
   margin: 20px 10px 0px 0px;
 }
 
-.ham-link a {
+.ham-link a,
+.ham-link span {
   text-decoration: none;
   font-weight: 400;
   color: #000;
+  cursor: pointer;
+  transition: 0.2s linear;
 }
 
-.ham-link a:hover {
+.ham-link a:hover,
+.ham-link span:hover {
   color: #ff69b4;
 }

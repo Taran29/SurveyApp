@@ -1,13 +1,29 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Hamburger.css'
 
-const Hamburger = () => {
+const Hamburger = ({ existingUser, setExistingUser, logoutFunction }) => {
+
+  const ref = useRef()
 
   const [isOpen, setIsOpen] = useState(false)
 
+  useEffect(() => {
+    const checkIfClickedOutside = e => {
+      if (isOpen && ref.current && !ref.current.contains(e.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", checkIfClickedOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", checkIfClickedOutside)
+    }
+  }, [isOpen])
+
   return (
-    <div className={isOpen ? 'open-ham' : 'close-ham'}>
+    <div className={isOpen ? 'open-ham' : 'close-ham'} ref={ref}>
       <div className='svg-parent'>
         <svg
           fill='#fff'
@@ -37,17 +53,17 @@ const Hamburger = () => {
         </svg>
       </div>
       <ul className={isOpen ? 'open-links' : 'close-links'}>
-        <li className="ham-link">
-          <Link to="/home">Home</Link>
-        </li>
-        <li className="ham-link">
+        <li className="ham-link" onClick={() => setIsOpen(false)}>
           <Link to="/about">About</Link>
         </li>
-        <li className="ham-link">
-          <Link to="/contact">Contact</Link>
-        </li>
-        <li className="ham-link">
+        <li className="ham-link" onClick={() => setIsOpen(false)}>
           <Link to="/profile">Profile</Link>
+        </li>
+        <li className="ham-link" onClick={() => {
+          logoutFunction()
+          setIsOpen(false)
+        }}>
+          <span>Logout</span>
         </li>
       </ul>
     </div>
