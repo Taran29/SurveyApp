@@ -23,7 +23,7 @@ const Profile = ({ setExistingUser }) => {
     <div className='profile-container'>
       <div className='user-info'>Name: {user.name}</div>
       <div className='user-info'>Email: {user.email}</div>
-      <div className="profile-item">
+      <div className="profile-item" onClick={() => navigate(`/createdSurveys/page/${1}`)}>
         <div className='user-action'>Created Surveys</div>
         <span>&gt;</span>
       </div>

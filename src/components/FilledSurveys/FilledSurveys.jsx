@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import PageControls from '../../utils/PageControls/PageControls'
 import './FilledSurveys.css'
 
 const FilledSurveys = () => {
@@ -15,7 +16,6 @@ const FilledSurveys = () => {
   let { page } = useParams()
 
   useEffect(() => {
-
     setAboveTotal(false)
     if (isNaN(parseInt(page)) || parseInt(page) < 1) {
       setPageNumber(1)
@@ -27,7 +27,7 @@ const FilledSurveys = () => {
     }
 
     const getFilledSurveys = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/filledSurveys/page/${pageNumber}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/profile/filledSurveys/page/${pageNumber}`, {
         method: 'GET',
         headers: {
           'x-auth-token': localStorage.getItem('auth-token')
@@ -59,43 +59,34 @@ const FilledSurveys = () => {
                 </div>
                 <button
                   className='submitBtn fill-survey-btn'
-                  onClick={() => navigate(`/filledSurvey/${survey._id}`, { state: { pageNumber: pageNumber } })}
+                  onClick={() => navigate(`/filledSurvey/${survey._id}`)}
                 >View</button>
               </div>
             )
           })}
 
-          <div className="page-controls page-controls-fill">
-            <button
-              className={pageNumber === 1 ? 'page-control-arrow-inactive' : 'page-control-arrow'}
-              onClick={() => {
-                setPageNumber(prev => prev - 1)
-                navigate(`/filledSurveys/page/${pageNumber - 1}`)
-              }}
-            >🡐</button>
-            <div className="page-number">Page {pageNumber} of {totalPages}</div>
-            <button
-              className={pageNumber === totalPages ? 'page-control-arrow-inactive' : 'page-control-arrow'}
-              onClick={() => {
-                setPageNumber(prev => prev + 1)
-                navigate(`/filledSurveys/page/${pageNumber + 1}`)
-              }}
-            >🡒</button>
-          </div>
+          <PageControls
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            totalPages={totalPages}
+            baseNavigate={'filledSurveys'}
+          />
         </>
       }
 
       {aboveTotal && pageNumber > 1 && <div className='warning-text'>Invalid request. URL exceeds maximum page number.</div>}
-      {aboveTotal && filledSurveys.length === 0 && pageNumber === 1 &&
+      {
+        aboveTotal && filledSurveys.length === 0 && pageNumber === 1 &&
         <div className='warning-text'>
           You haven't filled any surveys yet. Press Home in the navbar to start filling!
         </div>
       }
 
-      {loading &&
+      {
+        loading &&
         <div>Loading...</div>
       }
-    </div>
+    </div >
   )
 }
 

@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import './FilledSurvey.css'
 
 const FilledSurvey = () => {
 
   const { id } = useParams()
   const navigate = useNavigate()
-  const location = useLocation()
   const [survey, setSurvey] = useState({})
   const [selections, setSelections] = useState({})
 
   useEffect(() => {
     const getSurvey = async () => {
-      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/filledSurvey/${id}`, {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/profile/filledSurvey/${id}`, {
         method: 'GET',
         headers: {
           'x-auth-token': localStorage.getItem('auth-token')
@@ -51,7 +50,7 @@ const FilledSurvey = () => {
       <div className="button-wrapper">
         <button
           className='submitBtn filled-survey-button'
-          onClick={() => navigate(`/filledSurveys/page/${location.state.pageNumber}`)}
+          onClick={() => navigate(-1)}
         >Back</button>
         <button
           className='submitBtn filled-survey-button'

@@ -15,7 +15,8 @@ import {
   ChangeName,
   ChangePassword,
   FilledSurveys,
-  FilledSurvey
+  FilledSurvey,
+  CreatedSurveys
 } from './components';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -57,6 +58,8 @@ const App = () => {
             <Route path="/filledSurveys" element={<FilledSurveys />} />
             <Route path="/filledSurveys/page" element={<FilledSurveys />} />
             <Route path="/filledSurvey/:id" element={<FilledSurvey />} />
+            <Route path="/createdSurveys" element={<CreatedSurveys />} />
+            <Route path="/createdSurveys/page/:page" element={<CreatedSurveys />} />
           </Routes>
         </Router>
       </div>

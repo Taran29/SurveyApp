@@ -25,20 +25,8 @@
   flex-direction: column;
 }
 
-.page-controls-fill {
-  align-self: center;
-}
-
-.page-number {
-  margin: 0px 5px;
-}
-
 @media (max-width: 650px) {
   .filled-surveys-container h2 {
-    align-self: flex-start;
-  }
-
-  .page-controls-fill {
     align-self: flex-start;
   }
 }

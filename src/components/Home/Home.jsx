@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import './Home.css'
 import { useNavigate, useParams } from 'react-router-dom'
+import PageControls from '../../utils/PageControls/PageControls'
+import './Home.css'
 
 const Home = () => {
 
@@ -76,23 +77,12 @@ const Home = () => {
             )
           })}
 
-          <div className="page-controls">
-            <button
-              className={pageNumber === 1 ? 'page-control-arrow-inactive' : 'page-control-arrow'}
-              onClick={() => {
-                setPageNumber(prev => prev - 1)
-                navigate(`/home/page/${pageNumber - 1}`)
-              }}
-            >🡐</button>
-            <div className="page-number">Page {pageNumber} of {totalPages}</div>
-            <button
-              className={pageNumber === totalPages ? 'page-control-arrow-inactive' : 'page-control-arrow'}
-              onClick={() => {
-                setPageNumber(prev => prev + 1)
-                navigate(`/home/page/${pageNumber + 1}`)
-              }}
-            >🡒</button>
-          </div>
+          <PageControls
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            totalPages={totalPages}
+            baseNavigate={'home'}
+          />
         </>
       }
 
