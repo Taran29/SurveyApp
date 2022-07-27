@@ -36,24 +36,26 @@ const FillSurvey = () => {
           }
         })
 
+        if (response.status === 307) {
+          navigate(`/stats/${id}`)
+        }
+
         if (response.status === 400) {
-          setIsLoading(false)
           setSurveyNotFound(true)
         }
 
         if (response.status === 401) {
-          setIsLoading(false)
           setIsCreator(true)
         }
 
         if (response.status === 200) {
           const result = await response.json()
           setSurvey(result.body)
-          setIsLoading(false)
         }
       } catch (ex) {
-        setIsLoading(false)
         setIsConnection(false)
+      } finally {
+        setIsLoading(false)
       }
     }
 

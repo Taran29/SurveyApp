@@ -12,7 +12,7 @@ const SurveyCreated = () => {
 
   const [copyButtonText, setCopyButtonText] = useState('Copy')
 
-  const surveyUrl = `${process.env.REACT_APP_BASE_URL}/survey/${survey._id}`
+  const surveyUrl = `${process.env.REACT_APP_BASE_URL}/fillSurvey/${survey._id}`
 
   useEffect(() => {
     if (location.state.survey) {

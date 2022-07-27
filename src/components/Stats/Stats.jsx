@@ -85,11 +85,11 @@ const Stats = () => {
       {!loading && survey.numberOfTimesFilled === 0 &&
         <div className='not-filled'>
           <span>Your survey has not been filled by anyone yet. Share using the link below.</span>
-          <span>{`${process.env.REACT_APP_BASE_URL}/survey/${survey._id}`}</span>
+          <span>{`${process.env.REACT_APP_BASE_URL}/fillSurvey/${survey._id}`}</span>
           <div className="button-wrapper">
             <button
               type="button"
-              onClick={() => onCopy(`${process.env.REACT_APP_BASE_URL}/survey/${survey._id}`)}
+              onClick={() => onCopy(`${process.env.REACT_APP_BASE_URL}/fillSurvey/${survey._id}`)}
               className='submitBtn'
             >{copyButtonText}</button>
             <button
