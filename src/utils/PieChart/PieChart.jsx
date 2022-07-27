@@ -23,7 +23,7 @@ const PieChartComponent = ({ data }) => {
     <ResponsiveContainer width='100%' height='100%'>
       <PieChart width={100} height={100}>
         <Pie
-          data={[...data]}
+          data={data}
           cx="50%"
           cy="50%"
           labelLine={false}

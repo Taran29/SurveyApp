@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate, } from 'react-router-dom'
+import Loading from '../../utils/Loading/Loading'
 import './FillSurvey.css'
 
 const FillSurvey = () => {
@@ -67,6 +68,7 @@ const FillSurvey = () => {
 
   const submitSurvey = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
 
     if (Object.keys(userSelections).length !== survey.questions.length) {
       setNotFilled(true)
@@ -92,11 +94,12 @@ const FillSurvey = () => {
       }
 
       if (response.status === 200) {
-        alert('Survey filled successfully')
         navigate('/home')
       }
     } catch (ex) {
       setIsConnection(false)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -145,7 +148,7 @@ const FillSurvey = () => {
         </div>
       }
 
-      {isLoading && <span>Loading...</span>}
+      {isLoading && <Loading />}
       {isCreator && <span>You cannot fill your own survey.</span>}
       {surveyNotFound && <span>Bad request. Could not find survey with given ID.</span>}
       {!isConnection && <span>Cannot connect to the server right now. Please check your network connection or try again later.</span>}

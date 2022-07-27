@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import TextField from '../../utils/TextField/TextField'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import Loading from '../../utils/Loading/Loading'
 import './Login.css'
 
 const Login = ({ setExistingUser }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [loading, setLoading] = useState(false)
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -24,12 +27,13 @@ const Login = ({ setExistingUser }) => {
 
   const btnSubmitFunction = async (event) => {
     event.preventDefault()
+    setLoading(true)
     const user = {
       email: email,
       password: password
     }
     try {
-      let result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {
+      const result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -61,37 +65,44 @@ const Login = ({ setExistingUser }) => {
       }
     } catch (ex) {
       alert('Cannot connect to the server right now. Please try again later')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <form className="login-container" onSubmit={e => btnSubmitFunction(e)}>
-      <span className="login-title">Login</span>
-      <TextField
-        type="email"
-        placeholder="Enter your email..."
-        value={email || ''}
-        setValue={email => setEmail(email)}
-      />
-      <TextField
-        type="password"
-        placeholder="Enter your password..."
-        value={password || ''}
-        setValue={password => setPassword(password)}
-      />
+      {!loading &&
+        <>
+          <span className="login-title">Login</span>
+          <TextField
+            type="email"
+            placeholder="Enter your email..."
+            value={email || ''}
+            setValue={email => setEmail(email)}
+          />
+          <TextField
+            type="password"
+            placeholder="Enter your password..."
+            value={password || ''}
+            setValue={password => setPassword(password)}
+          />
 
-      <span className='forgot-pw-text'>
-        <Link to="/forgotPassword" className='registerRoute'>Forgot Password?</Link>
-      </span>
+          <span className='forgot-pw-text'>
+            <Link to="/forgotPassword" className='registerRoute'>Forgot Password?</Link>
+          </span>
 
-      <button
-        type="submit"
-        className="submitBtn"
-      >Login</button>
+          <button
+            type="submit"
+            className="submitBtn"
+          >Login</button>
 
-      <span className='registerText'>
-        Not a user? Sign up <Link to="/register" className="registerRoute">here!</Link>
-      </span>
+          <span className='registerText'>
+            Not a user? Sign up <Link to="/register" className="registerRoute">here!</Link>
+          </span>
+        </>
+      }
+      {loading && <Loading />}
     </form>
   )
 }

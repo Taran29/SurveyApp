@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Loading from '../../utils/Loading/Loading'
 import './FilledSurvey.css'
 
 const FilledSurvey = () => {
@@ -9,6 +10,7 @@ const FilledSurvey = () => {
   const navigate = useNavigate()
   const [survey, setSurvey] = useState({})
   const [selections, setSelections] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const getSurvey = async () => {
@@ -22,41 +24,48 @@ const FilledSurvey = () => {
       const result = await response.json()
       setSurvey(result.body.survey)
       setSelections(result.body.selections)
+      setLoading(false)
     }
     getSurvey()
   }, []) //eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="filled-survey-container">
-      <span className='fill-title'>{survey.title}</span>
-      <span className='fill-category'>{survey.category}</span>
+      {!loading &&
+        <>
+          <span className='fill-title'>{survey.title}</span>
+          <span className='fill-category'>{survey.category}</span>
 
-      {survey.questions && survey.questions.length > 0 && survey.questions.map((question, index) => {
-        return (
-          <div key={index} className='fill-question-container'>
-            <span>{question.question}</span>
-            <div className="options-container">
-              {question.options.map((option, idx) => {
-                return <span
-                  key={idx}
-                  className={selections[index].option === idx ? 'selected-option' : 'unselected-option'}
-                >{option.option}</span>
-              })}
-            </div>
+          {survey.questions && survey.questions.length > 0 && survey.questions.map((question, index) => {
+            return (
+              <div key={index} className='fill-question-container'>
+                <span>{question.question}</span>
+                <div className="options-container">
+                  {question.options.map((option, idx) => {
+                    return <span
+                      key={idx}
+                      className={selections[index].option === idx ? 'selected-option' : 'unselected-option'}
+                    >{option.option}</span>
+                  })}
+                </div>
+              </div>
+            )
+          })}
+
+          <div className="button-wrapper">
+            <button
+              className='submitBtn filled-survey-button'
+              onClick={() => navigate(-1)}
+            >Back</button>
+            <button
+              className='submitBtn filled-survey-button'
+              onClick={() => navigate('/home')}
+            >Home</button>
           </div>
-        )
-      })}
+        </>
+      }
 
-      <div className="button-wrapper">
-        <button
-          className='submitBtn filled-survey-button'
-          onClick={() => navigate(-1)}
-        >Back</button>
-        <button
-          className='submitBtn filled-survey-button'
-          onClick={() => navigate('/home')}
-        >Home</button>
-      </div>
+      {loading && <Loading />}
     </div>
   )
 }

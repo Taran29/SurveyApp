@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageControls from '../../utils/PageControls/PageControls'
+import Loading from '../../utils/Loading/Loading'
 import './Home.css'
 
 const Home = () => {
 
   const [surveys, setSurveys] = useState([])
-  const [pageNumber, setPageNumber] = useState()
+  const [pageNumber, setPageNumber] = useState(1)
+  const [totalPages, setTotalPages] = useState('')
+  const [aboveTotal, setAboveTotal] = useState(false)
 
   const [isConnection, setIsConnection] = useState(true)
-  const [totalPages, setTotalPages] = useState('')
-
-  const [aboveTotal, setAboveTotal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   let { page } = useParams()
 
   useEffect(() => {
     setAboveTotal(false)
+    setLoading(true)
     if (isNaN(parseInt(page)) || parseInt(page) < 1) {
       setPageNumber(1)
       // eslint-disable-next-line
@@ -45,11 +47,13 @@ const Home = () => {
         const result = await response.json()
         setSurveys(result.body.surveys)
         setTotalPages(result.body.totalPages)
+        setLoading(false)
         if (parseInt(page) > result.body.totalPages) {
           setAboveTotal(true)
         }
       } catch (ex) {
         setIsConnection(false)
+        setLoading(false)
       }
     }
 
@@ -58,7 +62,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {(isConnection && !aboveTotal) &&
+      {(isConnection && !aboveTotal && !loading) &&
         <>
           <h2 className='home-container-title'>Available Surveys</h2>
           {surveys.map((survey, idx) => {
@@ -86,16 +90,18 @@ const Home = () => {
         </>
       }
 
-      {!isConnection &&
+      {!isConnection && !loading &&
         <div>Cannot connect to the server right now. Please check your internet connection and try again later.</div>
       }
 
-      {aboveTotal && pageNumber > 1 && <div>Invalid request. URL exceeds maximum page number.</div>}
-      {aboveTotal && surveys.length === 0 && pageNumber === 1 &&
+      {aboveTotal && pageNumber > 1 && !loading && <div>Invalid request. URL exceeds maximum page number.</div>}
+      {aboveTotal && surveys.length === 0 && pageNumber === 1 && !loading &&
         <div>
           Sorry! No public unfilled surveys available at this time.
         </div>
       }
+
+      {loading && <Loading />}
       <button
         type="button"
         className='submitBtn create-btn'

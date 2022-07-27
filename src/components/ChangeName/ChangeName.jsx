@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import TextField from '../../utils/TextField/TextField.jsx'
 import { useNavigate } from 'react-router-dom'
 import './ChangeName.css'
+import Loading from '../../utils/Loading/Loading.jsx'
 
 
 const ChangeName = () => {
   const [name, setName] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -20,7 +22,7 @@ const ChangeName = () => {
 
   const formSubmit = async (e) => {
     e.preventDefault()
-
+    setLoading(true)
     let user = localStorage.getItem('user')
     user = JSON.parse(user)
     let response
@@ -37,7 +39,10 @@ const ChangeName = () => {
       })
     } catch (error) {
       alert('Cannot connect to the server. Please try again later')
+      setLoading(false)
       return
+    } finally {
+      setLoading(false)
     }
 
     if (response.status === 502) {
@@ -54,18 +59,24 @@ const ChangeName = () => {
 
   return (
     <form className="change-name-container" onSubmit={e => formSubmit(e)}>
-      <span className='change-name-title'>Change your name</span>
-      <TextField
-        type="text"
-        placeholder="Enter your new name..."
-        value={name || ''}
-        setValue={setName}
-        autoFocus={true}
-      />
-      <button
-        type="submit"
-        className="submitBtn"
-      >Submit</button>
+      {!loading &&
+        <>
+          <span className='change-name-title'>Change your name</span>
+          <TextField
+            type="text"
+            placeholder="Enter your new name..."
+            value={name || ''}
+            setValue={setName}
+            autoFocus={true}
+          />
+          <button
+            type="submit"
+            className="submitBtn"
+          >Submit</button>
+        </>
+      }
+
+      {loading && <Loading />}
     </form>
   )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Loading from '../../utils/Loading/Loading'
 import PieChartComponent from '../../utils/PieChart/PieChart'
 import './Stats.css'
 
@@ -25,6 +26,8 @@ const Stats = () => {
         setLoading(false)
       } catch (ex) {
         alert('Cannot connect to the server right now.')
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -39,9 +42,9 @@ const Stats = () => {
   const pieChartData = (index) => {
     const data = []
     if (!loading) {
-      survey.questions[index].options.forEach((opt) => {
+      survey.questions[index].options.forEach((opt, index) => {
         const obj = {
-          name: opt.option,
+          name: `Option ${index + 1}`,
           value: opt.numberOfTimesChosen
         }
         data.push(obj)
@@ -66,7 +69,7 @@ const Stats = () => {
                   {question.options.map((opt, idx) => {
                     return (
                       <span className='options-container-stats' key={idx}>
-                        {opt.option}
+                        {idx + 1}. {opt.option}
                       </span>
                     )
                   })}
@@ -97,7 +100,7 @@ const Stats = () => {
           </div>
         </div>
       }
-      {loading && <span>Loading...</span>}
+      {loading && <Loading />}
     </div>
   )
 }

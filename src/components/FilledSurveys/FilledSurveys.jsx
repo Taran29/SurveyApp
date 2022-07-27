@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import PageControls from '../../utils/PageControls/PageControls'
+import Loading from '../../utils/Loading/Loading'
 import './FilledSurveys.css'
 
 const FilledSurveys = () => {
@@ -82,10 +83,7 @@ const FilledSurveys = () => {
         </div>
       }
 
-      {
-        loading &&
-        <div>Loading...</div>
-      }
+      {loading && <Loading />}
     </div >
   )
 }

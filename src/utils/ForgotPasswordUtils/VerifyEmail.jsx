@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import Loading from '../Loading/Loading'
 import TextField from "../TextField/TextField"
 
 const VerifyEmail = (props) => {
@@ -10,7 +12,10 @@ const VerifyEmail = (props) => {
     setIsInvalidEmail
   } = props
 
+  const [loading, setLoading] = useState(false)
+
   const emailSubmitFunction = async () => {
+    setLoading(true)
     let response, result
     try {
       result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/user/${email}`, {
@@ -31,21 +36,28 @@ const VerifyEmail = (props) => {
     if (result.status === 400) {
       setIsInvalidEmail(true)
     }
+    setLoading(false)
   }
 
   return (
     <>
-      <TextField
-        type="email"
-        placeholder="Enter your email..."
-        value={email || ''}
-        setValue={email => setEmail(email)}
-        onEnter={emailSubmitFunction}
-      />
-      <button
-        className='submitBtn'
-        onClick={emailSubmitFunction}
-      >Next</button>
+      {!loading &&
+        <>
+          <TextField
+            type="email"
+            placeholder="Enter your email..."
+            value={email || ''}
+            setValue={email => setEmail(email)}
+            onEnter={emailSubmitFunction}
+          />
+          <button
+            className='submitBtn'
+            onClick={emailSubmitFunction}
+          >Next</button>
+        </>
+      }
+
+      {loading && <Loading />}
     </>
   )
 }

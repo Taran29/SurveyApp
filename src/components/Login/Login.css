@@ -33,6 +33,10 @@
   transition: 0.2s ease-in;
 }
 
+.loader {
+  align-self: center;
+}
+
 @media (max-width: 650px) {
   .login-container {
     width: 90%;

@@ -40,12 +40,20 @@
   height: 100%;
 }
 
+.recharts-surface {
+  padding-bottom: 3px;
+}
+
 .not-filled {
   display: flex;
   flex-direction: column;
 }
 
 @media (max-width: 650px) {
+  .stats-container {
+    width: 90%;
+  }
+
   .question-stats {
     flex-direction: column;
     height: 100%;
@@ -53,5 +61,6 @@
 
   .pie-chart {
     width: 100%;
+    align-self: flex-start;
   }
 }

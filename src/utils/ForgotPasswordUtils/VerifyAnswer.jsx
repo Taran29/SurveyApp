@@ -1,3 +1,5 @@
+import { useState } from "react"
+import Loading from "../Loading/Loading"
 import TextField from "../TextField/TextField"
 
 const VerifyAnswer = (props) => {
@@ -12,7 +14,10 @@ const VerifyAnswer = (props) => {
     setAllowNewPassword
   } = props
 
+  const [loading, setLoading] = useState(false)
+
   const verifyAnswer = async () => {
+    setLoading(true)
     const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword`, {
       method: 'POST',
       headers: {
@@ -25,6 +30,7 @@ const VerifyAnswer = (props) => {
     })
 
     await response.json()
+    setLoading(false)
 
     if (response.status === 200) {
       setToken(response.headers.get('x-forgot-password-token'))
@@ -40,27 +46,32 @@ const VerifyAnswer = (props) => {
 
   return (
     <>
-      <span>Answer the following security question: </span>
-      <span>Q. {question}</span>
-      <TextField
-        type="text"
-        placeholder="Enter your security question answer..."
-        value={answer || ''}
-        setValue={answer => setAnswer(answer)}
-        onEnter={verifyAnswer}
-        autoFocus={true}
-      />
+      {!loading &&
+        <>
+          <span>Answer the following security question: </span>
+          <span>Q. {question}</span>
+          <TextField
+            type="text"
+            placeholder="Enter your security question answer..."
+            value={answer || ''}
+            setValue={answer => setAnswer(answer)}
+            onEnter={verifyAnswer}
+            autoFocus={true}
+          />
 
-      {inValidAnswer ?
-        <span className='incorrect-ans'>Answer is incorrect</span> : <></>
+          {inValidAnswer ?
+            <span className='incorrect-ans'>Answer is incorrect</span> : <></>
+          }
+
+          <button
+            className='submitBtn'
+            onClick={verifyAnswer}
+          >
+            Next
+          </button>
+        </>
       }
-
-      <button
-        className='submitBtn'
-        onClick={verifyAnswer}
-      >
-        Next
-      </button>
+      {loading && <Loading />}
     </>
   )
 }

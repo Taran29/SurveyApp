@@ -5,6 +5,7 @@ import {
   EditableOption,
   EditableCurrentOption
 } from '../../utils/AddQuestionsUtils'
+import Loading from '../../utils/Loading/Loading'
 import TextField from '../../utils/TextField/TextField'
 import './AddQuestions.css'
 
@@ -25,6 +26,7 @@ const AddQuestions = () => {
   const [invalidQuestion, setInvalidQuestion] = useState(false)
   const [invalidOption, setInvalidOption] = useState(false)
   const [invalidNumberOfOptions, setInvalidNumberOfOptions] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const addQuestion = () => {
     if (question.length === 0) {
@@ -48,6 +50,7 @@ const AddQuestions = () => {
   }
 
   const createSurveyFunction = async () => {
+    setLoading(true)
     const finalQuestions = []
     questions.forEach((ques, index) => {
       finalQuestions.push({
@@ -84,7 +87,6 @@ const AddQuestions = () => {
     }
 
     if (response.status === 200) {
-      console.log(result.result, result.message)
       navigate('/surveyCreated', { state: { survey: result.result } })
     }
   }
@@ -97,116 +99,122 @@ const AddQuestions = () => {
 
   return (
     <div className="add-questions-container">
-      <span className='title-text'> {location.state.title} </span>
-      <span className='category-text'> {location.state.category} </span>
-      <span className='category-text'> Visibility: {location.state.isPrivate ? 'Private' : 'Public'} </span>
-      {questions.length > 0 && questions.map((_, index) => {
-        return (
-          <div key={index} className='editables' >
-            <EditableQuestion
-              setArray={questions}
-              setIndex={index}
-              setter={setQuestions}
-              options={options}
-              setOptions={setOptions}
-              currentOptions={currentOptions}
-              setCurrentOptions={setCurrentOptions}
-              setInputOptions={setInputOptions}
-            />
-            <span className='editable-option-container'>
-              {options[index] && options[index].length > 0 && options[index].map((_, idx) => {
-                return <EditableOption
-                  index={index}
-                  optionIndex={idx}
+      {!loading &&
+        <>
+          <span className='title-text'> {location.state.title} </span>
+          <span className='category-text'> {location.state.category} </span>
+          <span className='category-text'> Visibility: {location.state.isPrivate ? 'Private' : 'Public'} </span>
+          {questions.length > 0 && questions.map((_, index) => {
+            return (
+              <div key={index} className='editables' >
+                <EditableQuestion
+                  setArray={questions}
+                  setIndex={index}
+                  setter={setQuestions}
                   options={options}
                   setOptions={setOptions}
-                  key={idx}
-                />
-              })}
-              {questions.length - 1 !== index && <hr className='line' />}
-            </span>
-            {inputOptions && <ScrollToBottom />}
-          </div>
-        )
-      })}
-
-      {!inputOptions
-        ?
-        <>
-          <TextField
-            type="text"
-            placeholder="Enter question(max 200 chars)..."
-            value={question || ''}
-            setValue={setQuestion}
-            onEnter={addQuestion}
-            autoFocus={true}
-            maxLength={200}
-          />
-          {invalidQuestion && <span className='error-text'>Question cannot be empty</span>}
-
-          <div className="button-wrapper">
-            <button
-              className='submitBtn'
-              onClick={addQuestion}
-            >Add options</button>
-            <button
-              className='submitBtn'
-              onClick={createSurveyFunction}
-            >Create Survey</button>
-          </div>
-        </>
-        :
-        <>
-          {currentOptions.length > 0 &&
-            <div className='editables current-options'>
-              {currentOptions.map((_, idx) => {
-                return <EditableCurrentOption
                   currentOptions={currentOptions}
                   setCurrentOptions={setCurrentOptions}
-                  index={idx}
-                  key={idx}
+                  setInputOptions={setInputOptions}
                 />
-              })}
-            </div>
+                <span className='editable-option-container'>
+                  {options[index] && options[index].length > 0 && options[index].map((_, idx) => {
+                    return <EditableOption
+                      index={index}
+                      optionIndex={idx}
+                      options={options}
+                      setOptions={setOptions}
+                      key={idx}
+                    />
+                  })}
+                  {questions.length - 1 !== index && <hr className='line' />}
+                </span>
+                {inputOptions && <ScrollToBottom />}
+              </div>
+            )
+          })}
+
+          {!inputOptions
+            ?
+            <>
+              <TextField
+                type="text"
+                placeholder="Enter question(max 200 chars)..."
+                value={question || ''}
+                setValue={setQuestion}
+                onEnter={addQuestion}
+                autoFocus={true}
+                maxLength={200}
+              />
+              {invalidQuestion && <span className='error-text'>Question cannot be empty</span>}
+
+              <div className="button-wrapper">
+                <button
+                  className='submitBtn'
+                  onClick={addQuestion}
+                >Add options</button>
+                <button
+                  className='submitBtn'
+                  onClick={createSurveyFunction}
+                >Create Survey</button>
+              </div>
+            </>
+            :
+            <>
+              {currentOptions.length > 0 &&
+                <div className='editables current-options'>
+                  {currentOptions.map((_, idx) => {
+                    return <EditableCurrentOption
+                      currentOptions={currentOptions}
+                      setCurrentOptions={setCurrentOptions}
+                      index={idx}
+                      key={idx}
+                    />
+                  })}
+                </div>
+              }
+
+              <TextField
+                type="text"
+                placeholder="Enter option(max 100 chars)..."
+                value={option || ''}
+                setValue={setOption}
+                onEnter={addOption}
+                autoFocus={true}
+                maxLength={100}
+              />
+              {invalidOption && <span className='error-text'>Option cannot be empty</span>}
+
+              {invalidNumberOfOptions && <span className='error-text'>Should have at least two options</span>}
+
+              <div className="button-wrapper">
+                <button
+                  className='submitBtn'
+                  onClick={addOption}
+                >Add option</button>
+
+                <button
+                  className='submitBtn'
+                  onClick={() => {
+                    if (currentOptions.length < 2) {
+                      setInvalidNumberOfOptions(true)
+                      return
+                    }
+                    setInvalidOption(false)
+                    setInvalidNumberOfOptions(false)
+                    setOptions([...options, currentOptions])
+                    setCurrentOptions([])
+                    setOption('')
+                    setInputOptions(false)
+                  }}
+                >Add next question</button>
+              </div>
+            </>
           }
-
-          <TextField
-            type="text"
-            placeholder="Enter option(max 100 chars)..."
-            value={option || ''}
-            setValue={setOption}
-            onEnter={addOption}
-            autoFocus={true}
-            maxLength={100}
-          />
-          {invalidOption && <span className='error-text'>Option cannot be empty</span>}
-
-          {invalidNumberOfOptions && <span className='error-text'>Should have at least two options</span>}
-
-          <div className="button-wrapper">
-            <button
-              className='submitBtn'
-              onClick={addOption}
-            >Add option</button>
-
-            <button
-              className='submitBtn'
-              onClick={() => {
-                if (currentOptions.length < 2) {
-                  setInvalidNumberOfOptions(true)
-                  return
-                }
-                setInvalidOption(false)
-                setInvalidNumberOfOptions(false)
-                setOptions([...options, currentOptions])
-                setCurrentOptions([])
-                setOption('')
-                setInputOptions(false)
-              }}
-            >Add next question</button>
-          </div>
         </>
       }
+
+      {loading && <Loading />}
     </div>
   )
 }

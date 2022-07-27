@@ -17,7 +17,6 @@ const CreateSurvey = () => {
 
   const formSubmitFunction = (e) => {
     e.preventDefault()
-
     if (title.length === 0) {
       setInvalidTitle(true)
       return
