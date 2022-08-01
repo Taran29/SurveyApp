@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './Hamburger.css'
 
-const Hamburger = ({ existingUser, setExistingUser, logoutFunction }) => {
+const Hamburger = ({ logoutFunction }) => {
 
   const ref = useRef()
 
@@ -14,7 +14,6 @@ const Hamburger = ({ existingUser, setExistingUser, logoutFunction }) => {
         setIsOpen(false)
       }
     }
-
     document.addEventListener("mousedown", checkIfClickedOutside)
 
     return () => {

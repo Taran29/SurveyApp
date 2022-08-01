@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TextField from '../../utils/TextField/TextField'
+import Dropdown from '../../utils/Dropdown/Dropdown'
 import { useNavigate } from 'react-router-dom'
 import './CreateSurvey.css'
 
@@ -12,6 +13,9 @@ const CreateSurvey = () => {
   const [invalidCategory, setInvalidCategory] = useState(false)
 
   const [isPrivate, setIsPrivate] = useState(false)
+  const [dropdown, setDropdown] = useState(false)
+
+  const categories = ['Technology', 'Business', 'Sports', 'Politics', 'Other']
 
   const navigate = useNavigate()
 
@@ -21,7 +25,7 @@ const CreateSurvey = () => {
       setInvalidTitle(true)
       return
     } else setInvalidTitle(false)
-    if (category.length === 0) {
+    if (!categories.includes(category)) {
       setInvalidCategory(true)
       return
     } else setInvalidCategory(false)
@@ -37,6 +41,11 @@ const CreateSurvey = () => {
     setIsPrivate(false)
   }
 
+  const setPresetCategory = (preset) => {
+    setCategory(preset)
+    setDropdown(false)
+  }
+
   return (
     <form className='create-survey-container' onSubmit={(e) => formSubmitFunction(e)}>
       <span className='create-survey-title'>Create Survey</span>
@@ -48,13 +57,16 @@ const CreateSurvey = () => {
       />
       {invalidTitle && <span className='error-text'>Title cannot be empty</span>}
 
-      <TextField
-        type="text"
-        placeholder="Enter category..."
-        value={category || ''}
-        setValue={setCategory}
+      <Dropdown
+        category={category}
+        categories={categories}
+        setCategory={setCategory}
+        dropdown={dropdown}
+        setDropdown={setDropdown}
+        setPresetCategory={setPresetCategory}
       />
-      {invalidCategory && <span className='error-text'>Category cannot be empty</span>}
+
+      {invalidCategory && <span className='error-text'>Category has to be selected from the given options.</span>}
 
       <div className='radio-group'>
         <div>
