@@ -70,7 +70,7 @@ const Home = () => {
               <div key={idx} className='home-survey'>
                 <div className='home-survey-meta'>
                   <span className='home-survey-title'> {survey.title} </span>
-                  <span className='home-survey-category'> {survey.category} </span>
+                  <span className='home-survey-category'> {survey.category.category} </span>
                 </div>
                 <button
                   type="button"

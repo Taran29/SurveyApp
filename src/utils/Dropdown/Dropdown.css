@@ -34,6 +34,10 @@
   box-shadow: 1px 1px 1px 1px #939393;
 }
 
+.no-results {
+  padding: 5px;
+}
+
 #category {
   width: 100%;
 }

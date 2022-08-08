@@ -80,7 +80,7 @@ const CreatedSurveys = () => {
           {
             createdSurveys.length === 0 && pageNumber === 1 &&
             <div className='warning-text'>
-              You haven't filled any surveys yet. Press Home in the navbar to start filling!
+              You haven't created any surveys yet. Press Home in the navbar to start creating!
             </div>
           }
         </>

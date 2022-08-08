@@ -63,7 +63,7 @@ const AddQuestions = () => {
 
     const survey = {
       title: location.state.title,
-      category: location.state.category,
+      category: location.state.categoryID,
       private: location.state.isPrivate,
       questions: finalQuestions,
       createdBy: id,
