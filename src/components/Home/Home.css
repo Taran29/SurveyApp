@@ -7,8 +7,33 @@
   margin-top: 15vh;
 }
 
+.home-header {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.home-header div select {
+  margin: 0;
+  width: 30%;
+  min-width: fit-content;
+  height: 100%;
+}
+
+.home-header div {
+  height: 100%;
+  width: 60%;
+  padding-left: 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .home-container-title {
   margin-bottom: 10px;
+  padding-left: 10px;
 }
 
 .create-btn {
@@ -69,6 +94,22 @@
 
   .home-container-title {
     padding-left: 10px;
+  }
+
+  .home-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .home-header div {
+    width: 80%;
+    justify-content: flex-start;
+  }
+
+  .home-header div select {
+    margin-left: 10px;
+    width: fit-content;
+    height: 40px;
   }
 
   .create-btn {

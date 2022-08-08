@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import PageControls from '../../utils/PageControls/PageControls'
 import Loading from '../../utils/Loading/Loading'
 import './Home.css'
+import FilterSurveys from '../../utils/FilterSurveys/FilterSurveys'
 
 const Home = () => {
 
@@ -10,12 +11,32 @@ const Home = () => {
   const [pageNumber, setPageNumber] = useState(1)
   const [totalPages, setTotalPages] = useState('')
   const [aboveTotal, setAboveTotal] = useState(false)
+  const [filterSelection, setFilterSelection] = useState('')
+  const [categories, setCategories] = useState([])
 
   const [isConnection, setIsConnection] = useState(true)
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
   let { page } = useParams()
+
+  useEffect(() => {
+    const getCategories = async () => {
+      setLoading(true)
+      try {
+        const response = await fetch(`${[process.env.REACT_APP_BASE_URL_API]}/api/category`)
+        const result = await response.json()
+
+        setCategories(result.body)
+        setLoading(false)
+      } catch (ex) {
+        alert('Cannot connect to the server right now, please try again later.')
+        setLoading(false)
+      }
+    }
+
+    getCategories()
+  }, [])
 
   useEffect(() => {
     setAboveTotal(false)
@@ -30,6 +51,7 @@ const Home = () => {
     }
 
     const getSurveys = async () => {
+      setLoading(true)
       let fetchObj = {
         method: 'GET'
       }
@@ -43,7 +65,9 @@ const Home = () => {
       }
 
       try {
-        const response = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/survey/page/${page}`, fetchObj)
+        let url = `${process.env.REACT_APP_BASE_URL_API}/api/survey/page/${page}`
+        if (filterSelection !== '') url += `?category=${filterSelection}`
+        const response = await fetch(url, fetchObj)
         const result = await response.json()
         setSurveys(result.body.surveys)
         setTotalPages(result.body.totalPages)
@@ -57,20 +81,28 @@ const Home = () => {
       }
     }
 
+
     getSurveys()
-  }, [pageNumber]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pageNumber, filterSelection]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="home-container">
       {(isConnection && !aboveTotal && !loading) &&
         <>
-          <h2 className='home-container-title'>Available Surveys</h2>
+          <div className='home-header'>
+            <h2 className='home-container-title'>Available Surveys</h2>
+            <FilterSurveys
+              filterSelection={filterSelection}
+              setFilterSelection={setFilterSelection}
+              categories={categories}
+            />
+          </div>
           {surveys.map((survey, idx) => {
             return (
               <div key={idx} className='home-survey'>
                 <div className='home-survey-meta'>
                   <span className='home-survey-title'> {survey.title} </span>
-                  <span className='home-survey-category'> {survey.category.category} </span>
+                  <span className='home-survey-category'> {survey.category} </span>
                 </div>
                 <button
                   type="button"

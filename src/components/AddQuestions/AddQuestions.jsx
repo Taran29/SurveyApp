@@ -63,7 +63,7 @@ const AddQuestions = () => {
 
     const survey = {
       title: location.state.title,
-      category: location.state.categoryID,
+      category: location.state.category,
       private: location.state.isPrivate,
       questions: finalQuestions,
       createdBy: id,
@@ -83,6 +83,7 @@ const AddQuestions = () => {
 
     if (response.status === 404 || response.status === 400) {
       alert(result.message)
+      console.log('I was here?')
       return
     }
 

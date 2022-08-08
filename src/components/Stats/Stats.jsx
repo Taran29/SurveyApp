@@ -23,7 +23,6 @@ const Stats = () => {
         })
         const result = await response.json()
         setSurvey(result.body.survey)
-        setLoading(false)
       } catch (ex) {
         alert('Cannot connect to the server right now.')
       } finally {

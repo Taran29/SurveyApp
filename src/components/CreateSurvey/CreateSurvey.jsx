@@ -9,7 +9,6 @@ const CreateSurvey = () => {
 
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('')
-  const [categoryID, setCategoryID] = useState('')
   const [categories, setCategories] = useState([])
 
   const [invalidTitle, setInvalidTitle] = useState(false)
@@ -60,7 +59,6 @@ const CreateSurvey = () => {
       state: {
         title: title,
         category: category,
-        categoryID: categoryID,
         isPrivate: isPrivate
       }
     })
@@ -77,7 +75,6 @@ const CreateSurvey = () => {
   const setPresetCategory = (preset) => {
     setInvalidCategory(false)
     setCategory(preset.category)
-    setCategoryID(preset._id)
     setDropdown(false)
   }
 
