@@ -1,5 +1,5 @@
 .nav-parent {
-  height: 10%;
+  height: 60px;
   width: 100%;
   background-color: #ff69b4;
   position: fixed;
@@ -70,6 +70,10 @@ a:hover,
 }
 
 @media (max-width: 650px) {
+  .nav-parent {
+    height: 80px;
+  }
+
   .nav-container div {
     display: flex;
     margin-bottom: 1%;

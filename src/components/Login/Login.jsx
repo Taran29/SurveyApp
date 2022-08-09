@@ -47,7 +47,8 @@ const Login = ({ setExistingUser }) => {
         return
       }
 
-      let response = await result.json()
+      const response = await result.json()
+      console.log(response.result.filledSurveys)
 
       if (result.status === 200) {
         localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
@@ -57,8 +58,16 @@ const Login = ({ setExistingUser }) => {
           email: response.result.email
         }))
         setExistingUser(true)
-        if (location.state && location.state.path) {
-          navigate(location.state.path)
+        if (location.state && location.state.id) {
+          let isFilled = false
+          for (const survey of response.result.filledSurveys) {
+            if (location.state.id === survey.surveyID) {
+              isFilled = true
+              break
+            }
+          }
+          if (isFilled) navigate(`/filledSurvey/${location.state.id}`)
+          if (!isFilled) navigate(`/fillSurvey/${location.state.id}`)
           return
         }
         navigate('/home')

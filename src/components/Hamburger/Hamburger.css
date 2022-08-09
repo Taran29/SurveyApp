@@ -33,7 +33,7 @@
 .close-links {
   position: fixed;
   bottom: 0;
-  height: 90%;
+  height: calc(100% - 80px);
   width: 30%;
   background-color: #ffe6f2;
   text-align: right;

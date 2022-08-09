@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15vh;
+  margin-top: 100px;
 }
 
 .home-header {
@@ -13,6 +13,7 @@
   justify-content: space-between;
   align-items: center;
   padding-right: 30px;
+  margin-bottom: 20px;
 }
 
 .home-header div select {
@@ -96,6 +97,7 @@
 
 @media (max-width: 650px) {
   .home-container {
+    margin-top: 120px;
     align-items: flex-start;
     padding-left: 10px;
   }

@@ -159,7 +159,7 @@ const FillSurvey = () => {
           <span>You need to be logged in to fill this survey.</span>
           <button
             className='submitBtn no-user-button'
-            onClick={() => navigate('/login', { state: { path: `/fillSurvey/${id}` } })}
+            onClick={() => navigate('/login', { state: { id: id } })}
           >Login</button>
         </div>
       }
