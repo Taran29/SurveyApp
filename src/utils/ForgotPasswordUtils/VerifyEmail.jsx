@@ -13,30 +13,35 @@ const VerifyEmail = (props) => {
   } = props
 
   const [loading, setLoading] = useState(false)
+  const [emptyEmail, setEmptyEmail] = useState(false)
 
   const emailSubmitFunction = async () => {
+    if (email === '') {
+      console.log('bruhhh')
+      setEmptyEmail(true)
+      return
+    }
     setLoading(true)
-    let response, result
+    setEmptyEmail(false)
     try {
-      result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/user/${email}`, {
+      const result = await fetch(`${process.env.REACT_APP_BASE_URL_API}/api/forgotPassword/user/${email}`, {
         method: 'GET',
       })
+      const response = await result.json()
 
-      response = await result.json()
+      if (result.status === 200) {
+        setIsInvalidEmail(false)
+        setQuestion(response.securityQuestion)
+        setShowForm(true)
+      }
+
+      if (result.status === 400) {
+        setIsInvalidEmail(true)
+      }
+      setLoading(false)
     } catch (error) {
-      alert('Email cannot be empty')
+      alert('Cannot connect to the server right now, please try again later')
     }
-
-    if (result.status === 200) {
-      setIsInvalidEmail(false)
-      setQuestion(response.securityQuestion)
-      setShowForm(true)
-    }
-
-    if (result.status === 400) {
-      setIsInvalidEmail(true)
-    }
-    setLoading(false)
   }
 
   return (
@@ -50,6 +55,9 @@ const VerifyEmail = (props) => {
             setValue={email => setEmail(email)}
             onEnter={emailSubmitFunction}
           />
+
+          {emptyEmail && <span className='error-text'>Email cannot be empty</span>}
+
           <button
             className='submitBtn'
             onClick={emailSubmitFunction}

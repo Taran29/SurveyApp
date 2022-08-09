@@ -10,6 +10,7 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordMatch, setPasswordMatch] = useState(true)
+  const [invalidMessage, setInvalidMessage] = useState('')
   const [emptyFields, setEmptyFields] = useState(false)
 
   const navigate = useNavigate()
@@ -22,29 +23,32 @@ const Register = () => {
 
   const btnSubmitFunction = async (e) => {
     e.preventDefault()
+    setEmptyFields(false)
+
+    if ([name, email, password, confirmPassword].includes('')) {
+      setEmptyFields(true)
+      return
+    }
+
     if (password !== confirmPassword) {
       setPasswordMatch(false)
       return
     }
 
     if (password.length < 8) {
-      alert('Password cannot be less than 8 characters long')
+      setInvalidMessage('Password cannot be less than 8 characters long')
       setPassword('')
       setConfirmPassword('')
       return
     }
 
     if (password.length > 24) {
-      alert('Password cannot be greater than 24 characters long')
+      setInvalidMessage('Password cannot be greater than 24 characters long')
       setPassword('')
       setConfirmPassword('')
       return
     }
 
-    if ([name, email, password, confirmPassword].includes('')) {
-      setEmptyFields(true)
-      return
-    }
     const user = {
       name: name,
       email: email,
@@ -78,6 +82,8 @@ const Register = () => {
         passwordMatch={passwordMatch}
         setPasswordMatch={setPasswordMatch}
       />
+
+      {invalidMessage !== '' && <span className='empty-fields'> {invalidMessage} </span>}
 
       {emptyFields ?
         <span className="empty-fields">

@@ -8,6 +8,8 @@ const Login = ({ setExistingUser }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [invalid, setInvalid] = useState(false)
+  const [isConnection, setIsConnection] = useState(true)
 
   const [loading, setLoading] = useState(false)
 
@@ -43,14 +45,14 @@ const Login = ({ setExistingUser }) => {
       })
 
       if (result.status === 400) {
-        alert('Either email or password is incorrect')
+        setInvalid(true)
         return
       }
 
       const response = await result.json()
-      console.log(response.result.filledSurveys)
 
       if (result.status === 200) {
+        setInvalid(false)
         localStorage.setItem('auth-token', result.headers.get('x-auth-token'))
         localStorage.setItem('user', JSON.stringify({
           id: response.result._id,
@@ -73,7 +75,7 @@ const Login = ({ setExistingUser }) => {
         navigate('/home')
       }
     } catch (ex) {
-      alert('Cannot connect to the server right now. Please try again later')
+      setIsConnection(false)
     } finally {
       setLoading(false)
     }
@@ -81,7 +83,7 @@ const Login = ({ setExistingUser }) => {
 
   return (
     <form className="login-container" onSubmit={e => btnSubmitFunction(e)}>
-      {!loading &&
+      {!loading && isConnection &&
         <>
           <span className="login-title">Login</span>
           <TextField
@@ -97,6 +99,7 @@ const Login = ({ setExistingUser }) => {
             setValue={password => setPassword(password)}
           />
 
+          {invalid && <span className='error-text'>Either email or password is incorrect.</span>}
           <span className='forgot-pw-text'>
             <Link to="/forgotPassword" className='registerRoute'>Forgot Password?</Link>
           </span>
@@ -112,6 +115,7 @@ const Login = ({ setExistingUser }) => {
         </>
       }
       {loading && <Loading />}
+      {!isConnection && <span>Cannot connect to the server right now, please try again later.</span>}
     </form>
   )
 }
