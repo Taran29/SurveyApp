@@ -51,7 +51,7 @@ const CreatedSurveys = () => {
     <div className='filled-surveys-container'>
       {!loading &&
         <>
-          <h2>Created Surveys</h2>
+          <h2 className='created-surveys-title'>Created Surveys</h2>
           {createdSurveys.length > 0 && createdSurveys.map((survey, index) => {
             return (
               <div

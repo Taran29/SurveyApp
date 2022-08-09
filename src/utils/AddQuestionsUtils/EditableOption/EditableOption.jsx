@@ -33,8 +33,8 @@ const EditableOption = ({
         <div className='editable-container editable-container-options' onDoubleClick={() => setIsEditing(true)}>
           <span> {optionIndex + 1}. {options[index][optionIndex]} </span>
           <div className='button-container'>
-            <span onClick={() => setIsEditing(true)}>✏️</span>
-            <span onClick={onDelete}>❌</span>
+            <span className='emoji' onClick={() => setIsEditing(true)}>✏️</span>
+            <span className='emoji' onClick={onDelete}>❌</span>
           </div>
         </div>
         :

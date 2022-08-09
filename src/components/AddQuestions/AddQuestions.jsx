@@ -83,7 +83,6 @@ const AddQuestions = () => {
 
     if (response.status === 404 || response.status === 400) {
       alert(result.message)
-      console.log('I was here?')
       return
     }
 

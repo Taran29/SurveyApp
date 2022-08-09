@@ -29,8 +29,8 @@ const EditableQuestion = ({
         <div className='editable-container' onDoubleClick={() => setIsEditing(true)} >
           <span className='editable'> {setArray[setIndex]} </span>
           <div className='button-container'>
-            <span onClick={() => setIsEditing(true)}>✏️</span>
-            <span onClick={() => {
+            <span className='emoji' onClick={() => setIsEditing(true)}>✏️</span>
+            <span className='emoji' onClick={() => {
               setEditValue(setArray[setIndex + 1])
               setter(oldValue => oldValue.filter((_, idx) => idx !== setIndex))
               if (options[setIndex] === currentOptions) {
