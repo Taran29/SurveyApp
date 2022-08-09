@@ -5,6 +5,7 @@ import {
 } from '../../utils/ForgotPasswordUtils'
 import { useNavigate } from 'react-router-dom'
 import './ChangePassword.css'
+import Loading from '../../utils/Loading/Loading'
 
 const ChangePassword = () => {
 
@@ -12,6 +13,7 @@ const ChangePassword = () => {
   const [answer, setAnswer] = useState('')
   const [inValidAnswer, setInvalidAnswer] = useState(false)
   const [token, setToken] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const [allowNewPassword, setAllowNewPassword] = useState(false)
 
@@ -38,6 +40,8 @@ const ChangePassword = () => {
         setQuestion(result.securityQuestion)
       } catch (ex) {
         alert('Cannot connect to the database.')
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -46,30 +50,37 @@ const ChangePassword = () => {
 
   return (
     <div className='change-pw-container'>
-      <h2>Change your password</h2>
-      {(!allowNewPassword) &&
-        <VerifyAnswer
-          question={question}
-          answer={answer}
-          setAnswer={setAnswer}
-          inValidAnswer={inValidAnswer}
-          setInvalidAnswer={setInvalidAnswer}
-          email={(JSON.parse(localStorage.getItem('user'))).email}
-          setToken={setToken}
-          setAllowNewPassword={setAllowNewPassword}
-        />
-      }
+      <>
+        {!loading &&
+          <>
+            <h2>Change your password</h2>
+            {(!allowNewPassword) &&
+              <VerifyAnswer
+                question={question}
+                answer={answer}
+                setAnswer={setAnswer}
+                inValidAnswer={inValidAnswer}
+                setInvalidAnswer={setInvalidAnswer}
+                email={(JSON.parse(localStorage.getItem('user'))).email}
+                setToken={setToken}
+                setAllowNewPassword={setAllowNewPassword}
+              />
+            }
 
-      {(allowNewPassword) &&
-        <UpdatePassword
-          token={token}
-          newPassword={newPassword}
-          setNewPassword={setNewPassword}
-          confirmNewPassword={confirmNewPassword}
-          setConfirmNewPassword={setConfirmNewPassword}
-          isLoggedIn={true}
-        />
-      }
+            {(allowNewPassword) &&
+              <UpdatePassword
+                token={token}
+                newPassword={newPassword}
+                setNewPassword={setNewPassword}
+                confirmNewPassword={confirmNewPassword}
+                setConfirmNewPassword={setConfirmNewPassword}
+                isLoggedIn={true}
+              />
+            }
+          </>
+        }
+        {loading && <Loading />}
+      </>
     </div>
   )
 }

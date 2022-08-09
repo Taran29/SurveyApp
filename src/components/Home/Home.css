@@ -86,6 +86,14 @@
   width: 20%;
 }
 
+.error-div {
+  align-self: flex-start;
+  width: 80%;
+  margin: 0 auto;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+
 @media (max-width: 650px) {
   .home-container {
     align-items: flex-start;
@@ -114,5 +122,10 @@
 
   .create-btn {
     width: 30%;
+  }
+
+  .error-div {
+    margin: 0;
+    margin-top: 20px;
   }
 }

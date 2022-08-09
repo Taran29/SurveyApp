@@ -15,23 +15,21 @@ const Home = () => {
   const [categories, setCategories] = useState([])
 
   const [isConnection, setIsConnection] = useState(true)
-  const [loading, setLoading] = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
+  const [surveyLoading, setSurveyLoading] = useState(false)
 
   const navigate = useNavigate()
   let { page } = useParams()
 
   useEffect(() => {
     const getCategories = async () => {
-      setLoading(true)
       try {
         const response = await fetch(`${[process.env.REACT_APP_BASE_URL_API]}/api/category`)
         const result = await response.json()
 
         setCategories(result.body)
-        setLoading(false)
       } catch (ex) {
         alert('Cannot connect to the server right now, please try again later.')
-        setLoading(false)
       }
     }
 
@@ -40,7 +38,6 @@ const Home = () => {
 
   useEffect(() => {
     setAboveTotal(false)
-    setLoading(true)
     if (isNaN(parseInt(page)) || parseInt(page) < 1) {
       setPageNumber(1)
       // eslint-disable-next-line
@@ -51,7 +48,7 @@ const Home = () => {
     }
 
     const getSurveys = async () => {
-      setLoading(true)
+      setSurveyLoading(true)
       let fetchObj = {
         method: 'GET'
       }
@@ -71,13 +68,14 @@ const Home = () => {
         const result = await response.json()
         setSurveys(result.body.surveys)
         setTotalPages(result.body.totalPages)
-        setLoading(false)
         if (parseInt(page) > result.body.totalPages) {
           setAboveTotal(true)
         }
       } catch (ex) {
         setIsConnection(false)
-        setLoading(false)
+      } finally {
+        setPageLoading(false)
+        setSurveyLoading(false)
       }
     }
 
@@ -87,53 +85,59 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {(isConnection && !aboveTotal && !loading) &&
+      <div className='home-header'>
+        <h2 className='home-container-title'>Available Surveys</h2>
+        <FilterSurveys
+          filterSelection={filterSelection}
+          setFilterSelection={setFilterSelection}
+          categories={categories}
+        />
+      </div>
+      {(isConnection && !aboveTotal && !pageLoading) &&
         <>
-          <div className='home-header'>
-            <h2 className='home-container-title'>Available Surveys</h2>
-            <FilterSurveys
-              filterSelection={filterSelection}
-              setFilterSelection={setFilterSelection}
-              categories={categories}
-            />
-          </div>
-          {surveys.map((survey, idx) => {
-            return (
-              <div key={idx} className='home-survey'>
-                <div className='home-survey-meta'>
-                  <span className='home-survey-title'> {survey.title} </span>
-                  <span className='home-survey-category'> {survey.category} </span>
-                </div>
-                <button
-                  type="button"
-                  className='submitBtn fill-survey-btn'
-                  onClick={() => navigate(`/fillSurvey/${surveys[idx]._id}`)}
-                >Fill</button>
-              </div>
-            )
-          })}
+          {!surveyLoading &&
+            <>
+              {surveys.map((survey, idx) => {
+                return (
+                  <div key={idx} className='home-survey'>
+                    <div className='home-survey-meta'>
+                      <span className='home-survey-title'> {survey.title} </span>
+                      <span className='home-survey-category'> {survey.category} </span>
+                    </div>
+                    <button
+                      type="button"
+                      className='submitBtn fill-survey-btn'
+                      onClick={() => navigate(`/fillSurvey/${surveys[idx]._id}`)}
+                    >Fill</button>
+                  </div>
+                )
+              })}
 
-          <PageControls
-            pageNumber={pageNumber}
-            setPageNumber={setPageNumber}
-            totalPages={totalPages}
-            baseNavigate={'home'}
-          />
+              <PageControls
+                pageNumber={pageNumber}
+                setPageNumber={setPageNumber}
+                totalPages={totalPages}
+                baseNavigate={'home'}
+              />
+            </>
+          }
+
+          {surveyLoading && <Loading />}
         </>
       }
 
-      {!isConnection && !loading &&
-        <div>Cannot connect to the server right now. Please check your internet connection and try again later.</div>
+      {!isConnection && !pageLoading &&
+        <div className='error-div'>Cannot connect to the server right now. Please check your internet connection and try again later.</div>
       }
 
-      {aboveTotal && pageNumber > 1 && !loading && <div>Invalid request. URL exceeds maximum page number.</div>}
-      {aboveTotal && surveys.length === 0 && pageNumber === 1 && !loading &&
-        <div>
-          Sorry! No public unfilled surveys available at this time.
+      {aboveTotal && pageNumber > 1 && !pageLoading && <div className='error-div'>Invalid request. URL exceeds maximum page number.</div>}
+      {aboveTotal && surveys.length === 0 && pageNumber === 1 && !pageLoading &&
+        <div className='error-div'>
+          Sorry! No public unfilled surveys available for the given filters.
         </div>
       }
 
-      {loading && <Loading />}
+      {pageLoading && <Loading />}
       <button
         type="button"
         className='submitBtn create-btn'
