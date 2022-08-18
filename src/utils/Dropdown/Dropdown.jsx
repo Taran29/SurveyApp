@@ -28,6 +28,7 @@ const Dropdown = ({
   }, [dropdown]) //eslint-disable-line react-hooks/exhaustive-deps
 
   const dropdownSearch = (e) => {
+    setDropdown(true)
     setNoResults(false)
     setCategory(e.target.value)
     const checkName = (name, str) => {
