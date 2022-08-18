@@ -72,7 +72,8 @@ const Login = ({ setExistingUser }) => {
           if (!isFilled) navigate(`/fillSurvey/${location.state.id}`)
           return
         }
-        navigate('/home')
+        if (location.state && location.state.path) navigate(location.state.path)
+        else navigate('/home')
       }
     } catch (ex) {
       setIsConnection(false)

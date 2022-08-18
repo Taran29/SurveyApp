@@ -17,10 +17,18 @@ const CreateSurvey = () => {
   const [isPrivate, setIsPrivate] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(true)
 
   const navigate = useNavigate()
 
   useEffect(() => {
+
+    if (!localStorage.getItem('auth-token')) {
+      setIsLoggedIn(false)
+      return
+    }
+    setIsLoggedIn(true)
+
     const fetchCategories = async () => {
       try {
         const response = await fetch(`${[process.env.REACT_APP_BASE_URL_API]}/api/category`)
@@ -80,8 +88,8 @@ const CreateSurvey = () => {
 
   return (
     <form className='create-survey-container' onSubmit={(e) => formSubmitFunction(e)}>
-      {loading && <Loading />}
-      {!loading &&
+      {loading && isLoggedIn && <Loading />}
+      {!loading && isLoggedIn &&
         <>
           <span className='create-survey-title'>Create Survey</span>
           <TextField
@@ -132,6 +140,16 @@ const CreateSurvey = () => {
             className='submitBtn'
             onClick={e => formSubmitFunction(e)}
           >Add Questions</button>
+        </>
+      }
+
+      {!isLoggedIn &&
+        <>
+          <span className='loginText'>You need to be logged in to create a survey.</span>
+          <button
+            className='submitBtn'
+            onClick={() => navigate('/login', { state: { path: '/createSurvey' } })}
+          >Login</button>
         </>
       }
     </form >
