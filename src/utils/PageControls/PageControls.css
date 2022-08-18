@@ -10,6 +10,7 @@
 .page-control-arrow {
   font-size: 28px;
   transition: 0.2s linear;
+  align-self: baseline;
   cursor: pointer;
   outline: none;
   background-color: #fff;
@@ -39,7 +40,7 @@
 }
 
 .page-number {
-  margin: 0px 5px;
+  margin: 0px 10px;
 }
 
 @media (max-width: 750px) {

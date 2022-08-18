@@ -11,7 +11,7 @@ const PageControls = ({ pageNumber, setPageNumber, totalPages, baseNavigate }) =
           setPageNumber(prev => prev - 1)
           navigate(`/${baseNavigate}/page/${pageNumber - 1}`)
         }}
-      >🡐</button>
+      >{`<`}</button>
       <div className="page-number">Page {pageNumber} of {totalPages}</div>
       <button
         className={pageNumber === totalPages ? 'page-control-arrow-inactive' : 'page-control-arrow'}
@@ -19,7 +19,7 @@ const PageControls = ({ pageNumber, setPageNumber, totalPages, baseNavigate }) =
           setPageNumber(prev => prev + 1)
           navigate(`/${baseNavigate}/page/${pageNumber + 1}`)
         }}
-      >🡒</button>
+      >{`>`}</button>
     </div>
   )
 }
