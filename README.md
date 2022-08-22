@@ -6,7 +6,7 @@
 
 <p>This app has the following features: 
   <ol>
-    <li>Users can create an account, protected using a fully customisable security question and answer system. </li>
+    <li>Users can create an account, which is protected using a fully customisable security question and answer system. </li>
     <li>Users can access and fill public surveys created by anyone.</li>
     <li>Users can filter available surveys by various categories.</li>
     <li>Users can create their own surveys, choosing from the available categories, and even toggle between public and private surveys.
